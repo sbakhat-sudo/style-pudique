@@ -1,0 +1,1406 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Style-Pudique | Mode pudique &amp; élégante</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+/* ==========================================================================
+   1. VARIABLES & RESET
+   ========================================================================== */
+:root{
+  --white:#FFFFFF;
+  --purple:#8B5CF6;
+  --purple-dark:#6D28D9;
+  --purple-light:#F5F1FE;
+  --purple-lighter:#FAF8FF;
+  --text:#2D2A32;
+  --text-soft:#6B7280;
+  --border:#E9E4F7;
+  --danger:#DC2626;
+  --success:#16A34A;
+  --radius:14px;
+  --shadow:0 4px 24px rgba(139,92,246,0.10);
+  --shadow-lg:0 12px 40px rgba(139,92,246,0.18);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{
+  font-family:'Poppins',sans-serif;
+  color:var(--text);
+  background:var(--white);
+  line-height:1.6;
+  min-height:100vh;
+  -webkit-font-smoothing:antialiased;
+}
+img{max-width:100%;display:block;}
+a{text-decoration:none;color:inherit;}
+ul{list-style:none;}
+button{font-family:inherit;cursor:pointer;border:none;background:none;}
+input,select,textarea{font-family:inherit;font-size:1rem;}
+h1,h2,h3,h4{font-weight:600;letter-spacing:-0.01em;}
+
+.container{max-width:1200px;margin:0 auto;padding:0 20px;}
+.section{padding:60px 0;}
+.section-title{font-size:1.9rem;text-align:center;margin-bottom:8px;}
+.section-subtitle{text-align:center;color:var(--text-soft);margin-bottom:40px;font-weight:300;}
+
+/* ==========================================================================
+   2. BOUTONS & COMPOSANTS COMMUNS
+   ========================================================================== */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  padding:14px 30px;border-radius:50px;font-weight:500;font-size:0.95rem;
+  transition:all .25s ease;white-space:nowrap;
+}
+.btn-primary{background:var(--purple);color:var(--white);}
+.btn-primary:hover{background:var(--purple-dark);transform:translateY(-2px);box-shadow:var(--shadow-lg);}
+.btn-outline{background:transparent;color:var(--purple-dark);border:1.5px solid var(--purple);}
+.btn-outline:hover{background:var(--purple);color:var(--white);}
+.btn-block{width:100%;}
+.btn-sm{padding:8px 18px;font-size:0.85rem;border-radius:8px;}
+.btn-danger{background:#FEE2E2;color:var(--danger);}
+.btn-danger:hover{background:var(--danger);color:var(--white);}
+.btn:disabled{opacity:0.5;cursor:not-allowed;transform:none!important;}
+
+.badge{display:inline-block;padding:4px 12px;border-radius:50px;font-size:0.72rem;font-weight:600;letter-spacing:.03em;}
+.badge-purple{background:var(--purple-light);color:var(--purple-dark);}
+.badge-danger{background:#FEE2E2;color:var(--danger);}
+.badge-success{background:#DCFCE7;color:var(--success);}
+
+.card-white{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);}
+
+/* ==========================================================================
+   3. HEADER
+   ========================================================================== */
+header.site-header{
+  position:sticky;top:0;z-index:100;
+  background:rgba(255,255,255,0.92);backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--border);
+}
+.nav-wrap{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;max-width:1200px;margin:0 auto;}
+.logo{display:flex;align-items:center;gap:8px;font-size:1.35rem;font-weight:600;color:var(--purple-dark);}
+.logo .logo-word{background:linear-gradient(120deg,var(--purple-dark),var(--purple));-webkit-background-clip:text;background-clip:text;color:transparent;letter-spacing:0.02em;}
+.logo svg{flex-shrink:0;}
+
+.nav-links{display:none;align-items:center;gap:32px;}
+.nav-links a{font-size:0.95rem;font-weight:500;color:var(--text);position:relative;padding:6px 0;transition:color .2s;}
+.nav-links a:hover,.nav-links a.active{color:var(--purple-dark);}
+.nav-links a::after{content:'';position:absolute;left:0;bottom:0;width:0;height:2px;background:var(--purple);transition:width .25s;}
+.nav-links a:hover::after,.nav-links a.active::after{width:100%;}
+
+.nav-actions{display:flex;align-items:center;gap:18px;}
+.cart-link{position:relative;display:flex;align-items:center;}
+.cart-count{
+  position:absolute;top:-8px;right:-10px;background:var(--purple-dark);color:#fff;
+  font-size:0.65rem;font-weight:700;width:18px;height:18px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+}
+.burger{display:flex;flex-direction:column;gap:4px;width:24px;}
+.burger span{height:2px;width:100%;background:var(--text);border-radius:2px;transition:.25s;}
+
+.mobile-menu{display:none;flex-direction:column;background:var(--white);border-top:1px solid var(--border);}
+.mobile-menu.open{display:flex;}
+.mobile-menu a{padding:14px 20px;border-bottom:1px solid var(--border);font-weight:500;}
+
+@media(min-width:900px){
+  .nav-links{display:flex;}
+  .burger{display:none;}
+}
+
+/* ==========================================================================
+   4. HERO
+   ========================================================================== */
+.hero{
+  background:linear-gradient(160deg,var(--purple-lighter) 0%, var(--white) 55%);
+  padding:70px 0 50px;position:relative;overflow:hidden;
+}
+.hero::before{
+  content:'';position:absolute;top:-80px;right:-80px;width:280px;height:280px;
+  border-radius:50%;background:radial-gradient(circle,var(--purple-light) 0%, transparent 70%);
+}
+.hero-inner{max-width:1200px;margin:0 auto;padding:0 20px;text-align:center;position:relative;z-index:1;}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:8px;color:var(--purple-dark);font-weight:600;font-size:0.85rem;letter-spacing:.08em;text-transform:uppercase;margin-bottom:18px;}
+.hero h1{font-size:2.3rem;line-height:1.25;max-width:780px;margin:0 auto 18px;font-weight:600;}
+.hero h1 span{color:var(--purple-dark);}
+.hero p{max-width:520px;margin:0 auto 32px;color:var(--text-soft);font-weight:300;font-size:1.05rem;}
+.hero-actions{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;}
+
+@media(min-width:768px){
+  .hero{padding:100px 0 70px;}
+  .hero h1{font-size:3.2rem;}
+}
+
+/* ==========================================================================
+   5. CATEGORIES
+   ========================================================================== */
+.cat-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;}
+.cat-card{
+  position:relative;border-radius:var(--radius);overflow:hidden;aspect-ratio:1/1;
+  background:var(--purple-light);cursor:pointer;transition:transform .3s ease;
+}
+.cat-card:hover{transform:translateY(-6px);}
+.cat-card img{width:100%;height:100%;object-fit:cover;}
+.cat-card .cat-overlay{
+  position:absolute;inset:0;background:linear-gradient(0deg,rgba(45,27,74,.65) 0%,transparent 55%);
+  display:flex;align-items:flex-end;padding:16px;
+}
+.cat-card .cat-overlay span{color:#fff;font-weight:600;font-size:1.05rem;}
+
+@media(min-width:768px){.cat-grid{grid-template-columns:repeat(4,1fr);gap:22px;}}
+
+/* ==========================================================================
+   6. PRODUCT GRID / CARD
+   ========================================================================== */
+.prod-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;}
+@media(min-width:640px){.prod-grid{grid-template-columns:repeat(3,1fr);}}
+@media(min-width:1024px){.prod-grid{grid-template-columns:repeat(4,1fr);gap:24px;}}
+
+.prod-card{
+  background:var(--white);border-radius:var(--radius);overflow:hidden;
+  border:1px solid var(--border);transition:box-shadow .3s ease, transform .3s ease;
+  display:flex;flex-direction:column;
+}
+.prod-card:hover{box-shadow:var(--shadow-lg);transform:translateY(-4px);}
+.prod-img-wrap{position:relative;aspect-ratio:3/4;overflow:hidden;background:var(--purple-lighter);}
+.prod-img-wrap img{width:100%;height:100%;object-fit:cover;transition:transform .5s ease;}
+.prod-card:hover .prod-img-wrap img{transform:scale(1.06);}
+.prod-badge-new{position:absolute;top:10px;left:10px;}
+.prod-info{padding:14px 16px 18px;flex:1;display:flex;flex-direction:column;gap:6px;}
+.prod-cat{font-size:0.72rem;color:var(--purple-dark);font-weight:600;text-transform:uppercase;letter-spacing:.05em;}
+.prod-name{font-size:0.98rem;font-weight:500;}
+.prod-price{font-weight:600;color:var(--purple-dark);margin-top:auto;font-size:1.05rem;}
+.prod-stock-out{font-size:0.75rem;color:var(--danger);font-weight:500;}
+.prod-link-btn{margin-top:8px;}
+
+/* ==========================================================================
+   7. BANNER NOUVELLE COLLECTION
+   ========================================================================== */
+.collection-banner{
+  background:linear-gradient(120deg,var(--purple-dark),var(--purple));
+  border-radius:var(--radius);padding:44px 28px;text-align:center;color:#fff;
+  position:relative;overflow:hidden;
+}
+.collection-banner::before,.collection-banner::after{
+  content:'';position:absolute;border-radius:50%;background:rgba(255,255,255,0.08);
+}
+.collection-banner::before{width:180px;height:180px;top:-60px;left:-60px;}
+.collection-banner::after{width:220px;height:220px;bottom:-90px;right:-60px;}
+.collection-banner h2{font-size:1.6rem;margin-bottom:10px;position:relative;z-index:1;}
+.collection-banner p{opacity:0.9;font-weight:300;margin-bottom:22px;position:relative;z-index:1;}
+.collection-banner .btn-primary{background:#fff;color:var(--purple-dark);position:relative;z-index:1;}
+.collection-banner .btn-primary:hover{background:var(--purple-lighter);}
+
+@media(min-width:768px){.collection-banner{padding:64px 40px;}.collection-banner h2{font-size:2.1rem;}}
+
+/* ==========================================================================
+   8. FOOTER
+   ========================================================================== */
+footer.site-footer{background:var(--purple-lighter);border-top:1px solid var(--border);margin-top:60px;padding:40px 0 24px;}
+.footer-grid{display:grid;gap:28px;margin-bottom:28px;}
+.footer-col h4{font-size:0.9rem;margin-bottom:14px;color:var(--purple-dark);}
+.footer-col a,.footer-col p{display:block;color:var(--text-soft);font-size:0.88rem;margin-bottom:8px;}
+.footer-col a:hover{color:var(--purple-dark);}
+.footer-bottom{text-align:center;padding-top:20px;border-top:1px solid var(--border);font-size:0.8rem;color:var(--text-soft);}
+@media(min-width:768px){.footer-grid{grid-template-columns:repeat(4,1fr);}}
+
+/* ==========================================================================
+   9. BREADCRUMB / PAGE HEADER
+   ========================================================================== */
+.page-head{padding:28px 0 8px;}
+.page-head h1{font-size:1.6rem;}
+.crumbs{font-size:0.82rem;color:var(--text-soft);margin-bottom:6px;}
+.crumbs a:hover{color:var(--purple-dark);}
+
+/* ==========================================================================
+   10. CATALOGUE (filtres + grille)
+   ========================================================================== */
+.catalogue-layout{display:flex;flex-direction:column;gap:28px;padding:20px 0 60px;}
+@media(min-width:900px){.catalogue-layout{flex-direction:row;align-items:flex-start;}}
+
+.filters-panel{background:var(--purple-lighter);border-radius:var(--radius);padding:22px;flex-shrink:0;}
+@media(min-width:900px){.filters-panel{width:250px;position:sticky;top:90px;}}
+
+.filter-group{margin-bottom:22px;}
+.filter-group:last-child{margin-bottom:0;}
+.filter-group h4{font-size:0.85rem;text-transform:uppercase;letter-spacing:.04em;color:var(--purple-dark);margin-bottom:12px;}
+.filter-check{display:flex;align-items:center;gap:8px;margin-bottom:9px;font-size:0.9rem;cursor:pointer;}
+.filter-check input{accent-color:var(--purple);width:16px;height:16px;}
+.color-swatch-list{display:flex;flex-wrap:wrap;gap:8px;}
+.color-swatch{
+  width:28px;height:28px;border-radius:50%;cursor:pointer;border:2px solid transparent;
+  position:relative;transition:.2s;
+}
+.color-swatch.active{border-color:var(--purple-dark);}
+.price-range-inputs{display:flex;gap:10px;align-items:center;}
+.price-range-inputs input{width:100%;padding:8px 10px;border:1px solid var(--border);border-radius:8px;font-size:0.85rem;}
+.filter-reset{font-size:0.82rem;color:var(--purple-dark);text-decoration:underline;margin-top:14px;display:inline-block;}
+
+.catalogue-main{flex:1;}
+.catalogue-toolbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;flex-wrap:wrap;gap:12px;}
+.catalogue-toolbar select{padding:9px 14px;border:1px solid var(--border);border-radius:8px;background:var(--white);}
+.result-count{font-size:0.88rem;color:var(--text-soft);}
+.empty-state{text-align:center;padding:60px 20px;color:var(--text-soft);}
+
+/* ==========================================================================
+   11. FICHE PRODUIT
+   ========================================================================== */
+.product-detail{display:grid;gap:32px;padding:20px 0 70px;}
+@media(min-width:900px){.product-detail{grid-template-columns:1fr 1fr;gap:50px;}}
+
+.gallery-main{border-radius:var(--radius);overflow:hidden;aspect-ratio:3/4;background:var(--purple-lighter);margin-bottom:12px;}
+.gallery-main img{width:100%;height:100%;object-fit:cover;}
+.gallery-thumbs{display:flex;gap:10px;flex-wrap:wrap;}
+.gallery-thumbs img{width:70px;height:88px;object-fit:cover;border-radius:8px;cursor:pointer;border:2px solid transparent;opacity:.7;transition:.2s;}
+.gallery-thumbs img:hover{opacity:1;}
+.gallery-thumbs img.active{border-color:var(--purple);opacity:1;}
+
+.pd-cat{color:var(--purple-dark);font-weight:600;font-size:0.8rem;text-transform:uppercase;letter-spacing:.05em;}
+.pd-name{font-size:1.7rem;margin:8px 0 12px;}
+.pd-price{font-size:1.5rem;color:var(--purple-dark);font-weight:600;margin-bottom:18px;}
+.pd-desc{color:var(--text-soft);margin-bottom:24px;font-weight:300;}
+.option-block{margin-bottom:22px;}
+.option-block h4{font-size:0.85rem;text-transform:uppercase;letter-spacing:.04em;margin-bottom:10px;}
+.size-options{display:flex;gap:10px;flex-wrap:wrap;}
+.size-opt{
+  min-width:46px;padding:10px 14px;border:1.5px solid var(--border);border-radius:8px;
+  text-align:center;font-weight:500;font-size:0.9rem;transition:.2s;
+}
+.size-opt.active{border-color:var(--purple);background:var(--purple-light);color:var(--purple-dark);}
+.color-options{display:flex;gap:12px;flex-wrap:wrap;}
+.color-opt{display:flex;flex-direction:column;align-items:center;gap:6px;font-size:0.72rem;color:var(--text-soft);}
+.color-opt .swatch-circle{width:32px;height:32px;border-radius:50%;border:2px solid transparent;transition:.2s;}
+.color-opt.active .swatch-circle{border-color:var(--purple-dark);}
+.qty-selector{display:flex;align-items:center;border:1px solid var(--border);border-radius:8px;width:fit-content;}
+.qty-selector button{width:38px;height:38px;font-size:1.1rem;color:var(--purple-dark);}
+.qty-selector input{width:44px;text-align:center;border:none;font-weight:600;}
+.pd-actions{display:flex;gap:14px;flex-wrap:wrap;margin-top:6px;}
+.stock-note{margin-top:14px;font-size:0.85rem;}
+
+/* ==========================================================================
+   12. PANIER
+   ========================================================================== */
+.cart-page{padding:20px 0 70px;}
+.cart-layout{display:grid;gap:30px;}
+@media(min-width:900px){.cart-layout{grid-template-columns:2fr 1fr;align-items:start;}}
+.cart-item{display:grid;grid-template-columns:80px 1fr auto;gap:14px;padding:18px 0;border-bottom:1px solid var(--border);align-items:center;}
+.cart-item img{width:80px;height:100px;object-fit:cover;border-radius:8px;}
+.cart-item-name{font-weight:500;}
+.cart-item-meta{font-size:0.82rem;color:var(--text-soft);margin:4px 0 10px;}
+.cart-item-remove{color:var(--danger);font-size:0.8rem;font-weight:500;}
+.cart-item-right{text-align:right;display:flex;flex-direction:column;align-items:flex-end;gap:8px;}
+.cart-item-price{font-weight:600;color:var(--purple-dark);}
+.summary-box{padding:26px;}
+.summary-row{display:flex;justify-content:space-between;margin-bottom:12px;font-size:0.95rem;color:var(--text-soft);}
+.summary-row.total{font-size:1.15rem;font-weight:600;color:var(--text);border-top:1px solid var(--border);padding-top:14px;margin-top:6px;}
+
+/* ==========================================================================
+   13. CHECKOUT
+   ========================================================================== */
+.checkout-page{padding:20px 0 70px;}
+.checkout-layout{display:grid;gap:30px;}
+@media(min-width:900px){.checkout-layout{grid-template-columns:1.4fr 1fr;align-items:start;}}
+.form-group{margin-bottom:16px;}
+.form-group label{display:block;font-size:0.85rem;font-weight:500;margin-bottom:6px;}
+.form-group input,.form-group select,.form-group textarea{
+  width:100%;padding:12px 14px;border:1px solid var(--border);border-radius:8px;
+  transition:border-color .2s;background:var(--white);
+}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{outline:none;border-color:var(--purple);}
+.form-row{display:grid;gap:14px;grid-template-columns:1fr;}
+@media(min-width:560px){.form-row-2{grid-template-columns:1fr 1fr;}.form-row-3{grid-template-columns:1fr 1fr 1fr;}}
+.form-section-title{font-size:1rem;color:var(--purple-dark);margin:26px 0 14px;font-weight:600;}
+.form-section-title:first-child{margin-top:0;}
+.checkout-confirm{text-align:center;padding:70px 20px;}
+.checkout-confirm .icon-ok{
+  width:70px;height:70px;border-radius:50%;background:var(--purple-light);color:var(--purple-dark);
+  display:flex;align-items:center;justify-content:center;margin:0 auto 20px;font-size:2rem;
+}
+
+/* ==========================================================================
+   14. ADMIN
+   ========================================================================== */
+.admin-login-wrap{min-height:70vh;display:flex;align-items:center;justify-content:center;padding:40px 20px;}
+.admin-login-box{width:100%;max-width:380px;padding:40px 32px;text-align:center;}
+.admin-login-box h2{margin:14px 0 6px;}
+.admin-login-box p{color:var(--text-soft);font-size:0.88rem;margin-bottom:26px;}
+.admin-hint{margin-top:18px;font-size:0.78rem;color:var(--text-soft);background:var(--purple-lighter);padding:10px;border-radius:8px;}
+.admin-error{color:var(--danger);font-size:0.85rem;margin-top:10px;display:none;}
+
+.admin-shell{padding:24px 0 70px;}
+.admin-topbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;flex-wrap:wrap;gap:12px;}
+.admin-tabs{display:flex;gap:10px;margin-bottom:26px;flex-wrap:wrap;}
+.admin-tab{padding:10px 20px;border-radius:8px;font-weight:500;font-size:0.9rem;background:var(--purple-lighter);color:var(--text-soft);}
+.admin-tab.active{background:var(--purple);color:#fff;}
+
+.admin-stats{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-bottom:28px;}
+@media(min-width:768px){.admin-stats{grid-template-columns:repeat(4,1fr);}}
+.stat-card{padding:20px;}
+.stat-card .stat-value{font-size:1.6rem;font-weight:600;color:var(--purple-dark);}
+.stat-card .stat-label{font-size:0.8rem;color:var(--text-soft);}
+
+.admin-prod-grid{display:grid;grid-template-columns:1fr;gap:16px;}
+@media(min-width:640px){.admin-prod-grid{grid-template-columns:repeat(2,1fr);}}
+@media(min-width:1024px){.admin-prod-grid{grid-template-columns:repeat(3,1fr);}}
+.admin-prod-card{padding:14px;display:flex;gap:14px;}
+.admin-prod-card img{width:70px;height:88px;object-fit:cover;border-radius:8px;flex-shrink:0;}
+.admin-prod-card .apc-info{flex:1;min-width:0;}
+.admin-prod-card .apc-info h4{font-size:0.92rem;margin-bottom:4px;}
+.admin-prod-card .apc-price{color:var(--purple-dark);font-weight:600;font-size:0.9rem;}
+.admin-prod-card .apc-stock{font-size:0.78rem;color:var(--text-soft);margin-top:2px;}
+.admin-prod-actions{display:flex;gap:8px;margin-top:10px;}
+
+.orders-table-wrap{overflow-x:auto;}
+table.orders-table{width:100%;border-collapse:collapse;min-width:640px;}
+table.orders-table th,table.orders-table td{text-align:left;padding:12px 14px;font-size:0.88rem;border-bottom:1px solid var(--border);}
+table.orders-table th{color:var(--purple-dark);text-transform:uppercase;font-size:0.72rem;letter-spacing:.04em;}
+.order-items-mini{font-size:0.8rem;color:var(--text-soft);}
+
+/* Modal */
+.modal-overlay{
+  position:fixed;inset:0;background:rgba(45,27,74,0.45);display:none;
+  align-items:flex-start;justify-content:center;z-index:1000;padding:30px 16px;overflow-y:auto;
+}
+.modal-overlay.open{display:flex;}
+.modal-box{background:#fff;border-radius:var(--radius);width:100%;max-width:640px;padding:30px;margin:auto 0;}
+.modal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;}
+.modal-close{font-size:1.4rem;color:var(--text-soft);line-height:1;}
+.modal-close:hover{color:var(--danger);}
+.img-upload-list{display:flex;flex-wrap:wrap;gap:10px;margin-top:10px;}
+.img-upload-item{position:relative;width:70px;height:88px;}
+.img-upload-item img{width:100%;height:100%;object-fit:cover;border-radius:8px;}
+.img-upload-item .remove-img{
+  position:absolute;top:-6px;right:-6px;width:20px;height:20px;border-radius:50%;
+  background:var(--danger);color:#fff;font-size:0.7rem;display:flex;align-items:center;justify-content:center;
+}
+.checkbox-inline-group{display:flex;gap:14px;flex-wrap:wrap;}
+.checkbox-inline-group label{display:flex;align-items:center;gap:6px;font-size:0.88rem;}
+
+/* ==========================================================================
+   15. TOAST
+   ========================================================================== */
+#toast-container{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);z-index:2000;display:flex;flex-direction:column;gap:10px;align-items:center;}
+.toast{
+  background:var(--purple-dark);color:#fff;padding:12px 24px;border-radius:50px;font-size:0.88rem;
+  box-shadow:var(--shadow-lg);opacity:0;transform:translateY(10px);transition:all .3s ease;
+}
+.toast.show{opacity:1;transform:translateY(0);}
+
+/* ==========================================================================
+   16. FADE-IN ANIMATION
+   ========================================================================== */
+@keyframes fadeInUp{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:translateY(0);}}
+.fade-in{animation:fadeInUp .5s ease both;}
+</style>
+</head>
+<body>
+
+<!-- ============================== HEADER ============================== -->
+<header class="site-header">
+  <div class="nav-wrap">
+    <a href="#/" class="logo">
+      <svg width="30" height="30" viewBox="0 0 24 24" fill="none">
+        <defs>
+          <linearGradient id="petalGrad" x1="0" y1="0" x2="24" y2="24">
+            <stop offset="0" stop-color="#8B5CF6"/>
+            <stop offset="1" stop-color="#6D28D9"/>
+          </linearGradient>
+        </defs>
+        <path d="M12 3C12 3 15.5 6.7 15.5 10.2C15.5 12.4 13.9 14 12 14C10.1 14 8.5 12.4 8.5 10.2C8.5 6.7 12 3 12 3Z" fill="url(#petalGrad)"/>
+        <path d="M12 14C12 14 15.7 15.2 16.8 18.1C17.5 19.9 16.6 21.6 14.9 22.1C13.2 22.6 11.5 21.5 10.9 19.7C9.9 16.8 12 14 12 14Z" fill="url(#petalGrad)" opacity="0.75"/>
+        <path d="M12 14C12 14 8.3 15.2 7.2 18.1C6.5 19.9 7.4 21.6 9.1 22.1C10.8 22.6 12.5 21.5 13.1 19.7C14.1 16.8 12 14 12 14Z" fill="url(#petalGrad)" opacity="0.55"/>
+      </svg>
+      <span class="logo-word">Style-Pudique</span>
+    </a>
+
+    <nav class="nav-links">
+      <a href="#/" data-route="/">Accueil</a>
+      <a href="#/catalogue" data-route="/catalogue">Catalogue</a>
+      <a href="#/panier" data-route="/panier">Panier</a>
+    </nav>
+
+    <div class="nav-actions">
+      <a href="#/panier" class="cart-link" title="Panier">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 4h2l2.4 12.2a2 2 0 0 0 2 1.8h7.8a2 2 0 0 0 2-1.6L21 8H6"/><circle cx="9.5" cy="20.5" r="1.2" fill="currentColor" stroke="none"/><circle cx="17.5" cy="20.5" r="1.2" fill="currentColor" stroke="none"/></svg>
+        <span class="cart-count" id="cart-count">0</span>
+      </a>
+      <button class="burger" id="burger-btn" aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+  <div class="mobile-menu" id="mobile-menu">
+    <a href="#/">Accueil</a>
+    <a href="#/catalogue">Catalogue</a>
+    <a href="#/panier">Panier</a>
+    <a href="#/admin">Espace Admin</a>
+  </div>
+</header>
+
+<!-- ============================== APP ROOT ============================== -->
+<main id="app"></main>
+
+<!-- ============================== FOOTER ============================== -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <h4>Style-Pudique</h4>
+        <p>Mode pudique, élégante et intemporelle, pensée pour la femme moderne.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Navigation</h4>
+        <a href="#/">Accueil</a>
+        <a href="#/catalogue">Catalogue</a>
+        <a href="#/panier">Panier</a>
+      </div>
+      <div class="footer-col">
+        <h4>Service Client</h4>
+        <a href="#/checkout">Commander</a>
+        <a href="#/admin">Espace Admin</a>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <p>contact@style-pudique.fr</p>
+        <p>+212 6 00 00 00 00</p>
+      </div>
+    </div>
+    <div class="footer-bottom">© 2026 Style-Pudique — Tous droits réservés</div>
+  </div>
+</footer>
+
+<div id="toast-container"></div>
+
+<!-- ============================== MODAL PRODUIT (ADMIN) ============================== -->
+<div class="modal-overlay" id="product-modal">
+  <div class="modal-box">
+    <div class="modal-head">
+      <h3 id="modal-title">Ajouter un produit</h3>
+      <button class="modal-close" onclick="closeProductModal()">&times;</button>
+    </div>
+    <form id="product-form" onsubmit="return handleProductFormSubmit(event)">
+      <input type="hidden" id="pf-id">
+      <div class="form-group">
+        <label>Nom du produit</label>
+        <input type="text" id="pf-name" required>
+      </div>
+      <div class="form-group">
+        <label>Description</label>
+        <textarea id="pf-desc" rows="3" required></textarea>
+      </div>
+      <div class="form-row form-row-2">
+        <div class="form-group">
+          <label>Prix (€)</label>
+          <input type="number" id="pf-price" min="0" step="0.01" required>
+        </div>
+        <div class="form-group">
+          <label>Stock</label>
+          <input type="number" id="pf-stock" min="0" step="1" required>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Catégorie</label>
+        <select id="pf-category" required>
+          <option value="Robes">Robes</option>
+          <option value="Abayas">Abayas</option>
+          <option value="Hijabs">Hijabs</option>
+          <option value="Ensembles">Ensembles</option>
+          <option value="Accessoires">Accessoires</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Tailles disponibles</label>
+        <div class="checkbox-inline-group" id="pf-sizes">
+          <label><input type="checkbox" value="S"> S</label>
+          <label><input type="checkbox" value="M"> M</label>
+          <label><input type="checkbox" value="L"> L</label>
+          <label><input type="checkbox" value="XL"> XL</label>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Couleurs disponibles</label>
+        <div class="checkbox-inline-group" id="pf-colors">
+          <label><input type="checkbox" value="Mauve|#8B5CF6"> Mauve</label>
+          <label><input type="checkbox" value="Noir|#1F2937"> Noir</label>
+          <label><input type="checkbox" value="Beige|#D8CAB8"> Beige</label>
+          <label><input type="checkbox" value="Blanc|#FFFFFF"> Blanc</label>
+          <label><input type="checkbox" value="Bordeaux|#7F1D1D"> Bordeaux</label>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Mise en avant (page d'accueil)</label>
+        <label><input type="checkbox" id="pf-featured"> Produit vedette</label>
+      </div>
+      <div class="form-group">
+        <label>Images du produit</label>
+        <input type="file" id="pf-images-input" accept="image/*" multiple onchange="handleImageUpload(event)">
+        <div class="img-upload-list" id="pf-images-preview"></div>
+      </div>
+      <button type="submit" class="btn btn-primary btn-block" style="margin-top:10px;">Enregistrer le produit</button>
+    </form>
+  </div>
+</div>
+
+<script>
+/* ==========================================================================
+   DONNÉES : STOCKAGE LOCAL (LocalStorage simule la base de données)
+   Clés utilisées :
+     sp_products -> tableau des produits
+     sp_orders   -> tableau des commandes
+     sp_cart     -> tableau du panier courant
+   ========================================================================== */
+const DB_KEYS = { PRODUCTS:'sp_products', ORDERS:'sp_orders', CART:'sp_cart' };
+
+function getProducts(){ return JSON.parse(localStorage.getItem(DB_KEYS.PRODUCTS) || '[]'); }
+function saveProducts(list){ localStorage.setItem(DB_KEYS.PRODUCTS, JSON.stringify(list)); }
+function getOrders(){ return JSON.parse(localStorage.getItem(DB_KEYS.ORDERS) || '[]'); }
+function saveOrders(list){ localStorage.setItem(DB_KEYS.ORDERS, JSON.stringify(list)); }
+function getCart(){ return JSON.parse(localStorage.getItem(DB_KEYS.CART) || '[]'); }
+function saveCart(list){ localStorage.setItem(DB_KEYS.CART, JSON.stringify(list)); updateCartBadge(); }
+
+// Données de démonstration injectées au premier chargement uniquement
+function seedProductsIfEmpty(){
+  if(getProducts().length > 0) return;
+  const ph = (bg,label) => `https://placehold.co/600x800/${bg}/ffffff?text=${encodeURIComponent(label)}&font=poppins`;
+  const demo = [
+    { name:"Robe Amira", category:"Robes", price:79.90, stock:12, featured:true,
+      sizes:["S","M","L","XL"], colors:[["Mauve","#8B5CF6"],["Noir","#1F2937"],["Beige","#D8CAB8"]],
+      images:[ph("8B5CF6","Robe Amira 1"),ph("6D28D9","Robe Amira 2")],
+      description:"Robe longue fluide en tissu doux, coupe ample et manches longues. Idéale pour un look pudique et raffiné au quotidien." },
+    { name:"Abaya Noor", category:"Abayas", price:99.90, stock:8, featured:true,
+      sizes:["S","M","L"], colors:[["Noir","#1F2937"],["Bordeaux","#7F1D1D"]],
+      images:[ph("6D28D9","Abaya Noor 1"),ph("8B5CF6","Abaya Noor 2")],
+      description:"Abaya classique à coupe droite, tissu premium infroissable, finitions soignées et broderie discrète sur les manches." },
+    { name:"Hijab Soie Douce", category:"Hijabs", price:24.90, stock:30, featured:true,
+      sizes:["Taille unique"], colors:[["Mauve","#8B5CF6"],["Blanc","#FFFFFF"],["Beige","#D8CAB8"]],
+      images:[ph("D8CAB8","Hijab Soie 1"),ph("8B5CF6","Hijab Soie 2")],
+      description:"Hijab en voile de soie synthétique, léger et opaque, tombé parfait, ne glisse pas." },
+    { name:"Ensemble Léa", category:"Ensembles", price:129.90, stock:6, featured:true,
+      sizes:["S","M","L","XL"], colors:[["Beige","#D8CAB8"],["Noir","#1F2937"]],
+      images:[ph("8B5CF6","Ensemble Lea 1"),ph("6D28D9","Ensemble Lea 2")],
+      description:"Ensemble deux pièces : tunique longue et pantalon large assorti, parfait pour un style pudique moderne." },
+    { name:"Robe Yasmine", category:"Robes", price:89.90, stock:0, featured:false,
+      sizes:["M","L"], colors:[["Bordeaux","#7F1D1D"]],
+      images:[ph("7F1D1D","Robe Yasmine 1")],
+      description:"Robe évasée à col rond, tissu texturé, parfaite pour les occasions spéciales." },
+    { name:"Abaya Chiffon Elégance", category:"Abayas", price:109.90, stock:15, featured:false,
+      sizes:["S","M","L","XL"], colors:[["Mauve","#8B5CF6"],["Noir","#1F2937"]],
+      images:[ph("8B5CF6","Abaya Chiffon 1"),ph("6D28D9","Abaya Chiffon 2")],
+      description:"Abaya en mousseline légère doublée, coupe fluide et élégante, ceinture assortie incluse." },
+    { name:"Hijab Jersey Confort", category:"Hijabs", price:19.90, stock:40, featured:false,
+      sizes:["Taille unique"], colors:[["Noir","#1F2937"],["Beige","#D8CAB8"],["Mauve","#8B5CF6"]],
+      images:[ph("1F2937","Hijab Jersey 1")],
+      description:"Hijab en jersey extensible, très confortable, facile à mettre en place, idéal usage quotidien." },
+    { name:"Sac Voile Minimaliste", category:"Accessoires", price:39.90, stock:20, featured:false,
+      sizes:["Taille unique"], colors:[["Mauve","#8B5CF6"],["Noir","#1F2937"]],
+      images:[ph("6D28D9","Sac Voile 1")],
+      description:"Sac à main minimaliste, ligne épurée, parfait complément pour toute tenue pudique." }
+  ];
+  const products = demo.map((p,i) => ({
+    id: 'p' + (Date.now()+i),
+    createdAt: Date.now() - (demo.length - i) * 100000,
+    ...p
+  }));
+  saveProducts(products);
+}
+
+/* ==========================================================================
+   UTILITAIRES
+   ========================================================================== */
+function formatPrice(n){ return n.toFixed(2).replace('.',',') + ' €'; }
+function escapeHtml(str){
+  const div = document.createElement('div'); div.textContent = str ?? ''; return div.innerHTML;
+}
+function showToast(msg){
+  const container = document.getElementById('toast-container');
+  const el = document.createElement('div');
+  el.className = 'toast';
+  el.textContent = msg;
+  container.appendChild(el);
+  requestAnimationFrame(() => el.classList.add('show'));
+  setTimeout(() => { el.classList.remove('show'); setTimeout(()=>el.remove(), 300); }, 2400);
+}
+function navigate(hash){ window.location.hash = hash; }
+
+/* ==========================================================================
+   PANIER
+   ========================================================================== */
+function cartCount(){ return getCart().reduce((sum,i) => sum + i.qty, 0); }
+function updateCartBadge(){
+  const el = document.getElementById('cart-count');
+  if(el) el.textContent = cartCount();
+}
+function addToCart(productId, size, color, qty){
+  const cart = getCart();
+  const existing = cart.find(i => i.productId === productId && i.size === size && i.color === color);
+  if(existing){ existing.qty += qty; } else { cart.push({ productId, size, color, qty }); }
+  saveCart(cart);
+  showToast('Produit ajouté au panier ✓');
+}
+function removeCartLine(index){
+  const cart = getCart();
+  cart.splice(index,1);
+  saveCart(cart);
+  renderRoute();
+}
+function updateCartQty(index, qty){
+  const cart = getCart();
+  if(qty < 1) qty = 1;
+  cart[index].qty = qty;
+  saveCart(cart);
+  renderRoute();
+}
+function cartLinesWithProducts(){
+  const products = getProducts();
+  return getCart().map((line, idx) => {
+    const product = products.find(p => p.id === line.productId);
+    return { ...line, index: idx, product };
+  }).filter(l => l.product);
+}
+function cartTotal(){
+  return cartLinesWithProducts().reduce((sum,l) => sum + l.product.price * l.qty, 0);
+}
+
+/* ==========================================================================
+   ROUTEUR
+   ========================================================================== */
+function parseHash(){
+  const hash = window.location.hash.replace(/^#/, '') || '/';
+  const parts = hash.split('/').filter(Boolean);
+  return parts;
+}
+function renderRoute(){
+  const parts = parseHash();
+  const app = document.getElementById('app');
+  window.scrollTo(0,0);
+  setActiveNav(parts);
+
+  if(parts.length === 0){ app.innerHTML = renderHome(); attachHomeEvents(); }
+  else if(parts[0] === 'catalogue'){ app.innerHTML = renderCatalogue(); attachCatalogueEvents(); }
+  else if(parts[0] === 'produit' && parts[1]){ app.innerHTML = renderProductDetail(parts[1]); attachProductDetailEvents(parts[1]); }
+  else if(parts[0] === 'panier'){ app.innerHTML = renderCartPage(); }
+  else if(parts[0] === 'checkout'){ app.innerHTML = renderCheckoutPage(); attachCheckoutEvents(); }
+  else if(parts[0] === 'admin'){ renderAdminRoute(app); }
+  else { app.innerHTML = renderHome(); attachHomeEvents(); }
+
+  document.getElementById('mobile-menu').classList.remove('open');
+}
+function setActiveNav(parts){
+  document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+  const route = parts.length === 0 ? '/' : '/' + parts[0];
+  const link = document.querySelector(`.nav-links a[data-route="${route}"]`);
+  if(link) link.classList.add('active');
+}
+
+/* ==========================================================================
+   PAGE : ACCUEIL
+   ========================================================================== */
+function renderHome(){
+  const products = getProducts();
+  const featured = products.filter(p => p.featured).slice(0,4);
+  const categories = [
+    { name:'Robes', bg:'8B5CF6' }, { name:'Abayas', bg:'6D28D9' },
+    { name:'Hijabs', bg:'A78BFA' }, { name:'Ensembles', bg:'7C3AED' }
+  ];
+
+  return `
+  <section class="hero fade-in">
+    <div class="hero-inner">
+      <span class="hero-eyebrow">✿ Nouvelle collection</span>
+      <h1>L'élégance se vit dans la <span>pudeur</span></h1>
+      <p>Découvrez des pièces intemporelles pensées pour la femme moderne, alliant modestie, raffinement et confort au quotidien.</p>
+      <div class="hero-actions">
+        <a href="#/catalogue" class="btn btn-primary">Découvrir la collection</a>
+        <a href="#/catalogue" class="btn btn-outline">Voir les nouveautés</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section container">
+    <h2 class="section-title">Nos catégories</h2>
+    <p class="section-subtitle">Trouvez la pièce parfaite pour chaque occasion</p>
+    <div class="cat-grid">
+      ${categories.map(c => `
+        <div class="cat-card" onclick="navigate('#/catalogue'); setTimeout(()=>filterByCategory('${c.name}'),0)">
+          <img src="https://placehold.co/400x400/${c.bg}/ffffff?text=${encodeURIComponent(c.name)}&font=poppins" alt="${escapeHtml(c.name)}">
+          <div class="cat-overlay"><span>${escapeHtml(c.name)}</span></div>
+        </div>
+      `).join('')}
+    </div>
+  </section>
+
+  <section class="section container" style="padding-top:0;">
+    <h2 class="section-title">Produits en vedette</h2>
+    <p class="section-subtitle">Notre sélection coup de cœur</p>
+    ${featured.length ? `<div class="prod-grid">${featured.map(productCardHtml).join('')}</div>` : `<p class="empty-state">Aucun produit vedette pour le moment.</p>`}
+  </section>
+
+  <section class="container" style="padding-bottom:70px;">
+    <div class="collection-banner">
+      <h2>Nouvelle Collection ✿</h2>
+      <p>Des tenues pudiques pensées pour sublimer votre style, dès aujourd'hui.</p>
+      <a href="#/catalogue" class="btn btn-primary">Explorer maintenant</a>
+    </div>
+  </section>
+  `;
+}
+function attachHomeEvents(){}
+function filterByCategory(cat){
+  const sel = document.querySelector(`#filter-category input[value="${cat}"]`);
+  if(sel){ sel.checked = true; sel.dispatchEvent(new Event('change')); }
+}
+
+function productCardHtml(p){
+  const outOfStock = p.stock <= 0;
+  return `
+  <div class="prod-card fade-in">
+    <a href="#/produit/${p.id}">
+      <div class="prod-img-wrap">
+        <img src="${p.images[0]}" alt="${escapeHtml(p.name)}">
+        ${outOfStock ? '' : '<span class="badge badge-purple prod-badge-new">Disponible</span>'}
+      </div>
+    </a>
+    <div class="prod-info">
+      <span class="prod-cat">${escapeHtml(p.category)}</span>
+      <a href="#/produit/${p.id}"><span class="prod-name">${escapeHtml(p.name)}</span></a>
+      <span class="prod-price">${formatPrice(p.price)}</span>
+      ${outOfStock ? '<span class="prod-stock-out">Rupture de stock</span>' : ''}
+      <a href="#/produit/${p.id}" class="btn btn-outline btn-sm prod-link-btn">Voir le produit</a>
+    </div>
+  </div>`;
+}
+
+/* ==========================================================================
+   PAGE : CATALOGUE
+   ========================================================================== */
+let catalogueFilters = { categories:[], sizes:[], colors:[], min:'', max:'', sort:'newest' };
+
+function renderCatalogue(){
+  const products = getProducts();
+  const allCategories = [...new Set(products.map(p => p.category))];
+  const allSizes = [...new Set(products.flatMap(p => p.sizes))];
+  const allColors = [...new Map(products.flatMap(p => p.colors).map(c => [c[0], c])).values()];
+
+  return `
+  <div class="container">
+    <div class="page-head">
+      <div class="crumbs"><a href="#/">Accueil</a> / Catalogue</div>
+      <h1>Notre Catalogue</h1>
+    </div>
+
+    <div class="catalogue-layout">
+      <aside class="filters-panel card-white">
+        <div class="filter-group" id="filter-category">
+          <h4>Catégorie</h4>
+          ${allCategories.map(c => `
+            <label class="filter-check">
+              <input type="checkbox" value="${escapeHtml(c)}" onchange="toggleFilter('categories','${escapeHtml(c)}')">
+              ${escapeHtml(c)}
+            </label>`).join('')}
+        </div>
+        <div class="filter-group" id="filter-size">
+          <h4>Taille</h4>
+          ${allSizes.map(s => `
+            <label class="filter-check">
+              <input type="checkbox" value="${escapeHtml(s)}" onchange="toggleFilter('sizes','${escapeHtml(s)}')">
+              ${escapeHtml(s)}
+            </label>`).join('')}
+        </div>
+        <div class="filter-group">
+          <h4>Couleur</h4>
+          <div class="color-swatch-list" id="filter-color">
+            ${allColors.map(c => `
+              <div class="color-swatch" style="background:${c[1]};box-shadow:0 0 0 1px var(--border) inset;" title="${escapeHtml(c[0])}" onclick="toggleColorFilter(this,'${escapeHtml(c[0])}')"></div>
+            `).join('')}
+          </div>
+        </div>
+        <div class="filter-group">
+          <h4>Prix (€)</h4>
+          <div class="price-range-inputs">
+            <input type="number" id="filter-min" placeholder="Min" oninput="setPriceFilter()">
+            <span>-</span>
+            <input type="number" id="filter-max" placeholder="Max" oninput="setPriceFilter()">
+          </div>
+        </div>
+        <a class="filter-reset" onclick="resetFilters()">Réinitialiser les filtres</a>
+      </aside>
+
+      <div class="catalogue-main">
+        <div class="catalogue-toolbar">
+          <span class="result-count" id="result-count"></span>
+          <select id="sort-select" onchange="setSortOrder(this.value)">
+            <option value="newest">Nouveautés</option>
+            <option value="price-asc">Prix croissant</option>
+            <option value="price-desc">Prix décroissant</option>
+          </select>
+        </div>
+        <div class="prod-grid" id="catalogue-grid"></div>
+      </div>
+    </div>
+  </div>
+  `;
+}
+
+function attachCatalogueEvents(){ renderFilteredProducts(); }
+
+function toggleFilter(kind, value){
+  const arr = catalogueFilters[kind];
+  const i = arr.indexOf(value);
+  if(i === -1) arr.push(value); else arr.splice(i,1);
+  renderFilteredProducts();
+}
+function toggleColorFilter(el, colorName){
+  el.classList.toggle('active');
+  toggleFilter('colors', colorName);
+}
+function setPriceFilter(){
+  catalogueFilters.min = document.getElementById('filter-min').value;
+  catalogueFilters.max = document.getElementById('filter-max').value;
+  renderFilteredProducts();
+}
+function setSortOrder(val){ catalogueFilters.sort = val; renderFilteredProducts(); }
+function resetFilters(){
+  catalogueFilters = { categories:[], sizes:[], colors:[], min:'', max:'', sort:'newest' };
+  document.getElementById('catalogue-grid').closest('.catalogue-main').parentElement.querySelectorAll('input[type=checkbox]').forEach(c=>c.checked=false);
+  document.querySelectorAll('.color-swatch').forEach(s=>s.classList.remove('active'));
+  document.getElementById('filter-min').value='';
+  document.getElementById('filter-max').value='';
+  document.getElementById('sort-select').value='newest';
+  renderFilteredProducts();
+}
+function renderFilteredProducts(){
+  let list = getProducts();
+  const f = catalogueFilters;
+  if(f.categories.length) list = list.filter(p => f.categories.includes(p.category));
+  if(f.sizes.length) list = list.filter(p => p.sizes.some(s => f.sizes.includes(s)));
+  if(f.colors.length) list = list.filter(p => p.colors.some(c => f.colors.includes(c[0])));
+  if(f.min !== '') list = list.filter(p => p.price >= parseFloat(f.min));
+  if(f.max !== '') list = list.filter(p => p.price <= parseFloat(f.max));
+
+  if(f.sort === 'price-asc') list.sort((a,b) => a.price - b.price);
+  else if(f.sort === 'price-desc') list.sort((a,b) => b.price - a.price);
+  else list.sort((a,b) => b.createdAt - a.createdAt);
+
+  const grid = document.getElementById('catalogue-grid');
+  const countEl = document.getElementById('result-count');
+  if(countEl) countEl.textContent = `${list.length} produit${list.length>1?'s':''}`;
+  if(grid) grid.innerHTML = list.length ? list.map(productCardHtml).join('') : `<p class="empty-state">Aucun produit ne correspond à ces filtres.</p>`;
+}
+
+/* ==========================================================================
+   PAGE : FICHE PRODUIT
+   ========================================================================== */
+let pdSelectedSize = null, pdSelectedColor = null, pdMainImage = null;
+
+function renderProductDetail(id){
+  const product = getProducts().find(p => p.id === id);
+  if(!product){
+    return `<div class="container"><p class="empty-state">Produit introuvable. <a href="#/catalogue">Retour au catalogue</a></p></div>`;
+  }
+  pdSelectedSize = product.sizes[0] || null;
+  pdSelectedColor = product.colors[0] ? product.colors[0][0] : null;
+  pdMainImage = 0;
+  const outOfStock = product.stock <= 0;
+
+  return `
+  <div class="container">
+    <div class="page-head">
+      <div class="crumbs"><a href="#/">Accueil</a> / <a href="#/catalogue">Catalogue</a> / ${escapeHtml(product.name)}</div>
+    </div>
+    <div class="product-detail">
+      <div>
+        <div class="gallery-main"><img id="pd-main-img" src="${product.images[0]}" alt="${escapeHtml(product.name)}"></div>
+        <div class="gallery-thumbs">
+          ${product.images.map((img,i) => `<img src="${img}" class="${i===0?'active':''}" onclick="switchGalleryImage(${i}, this)">`).join('')}
+        </div>
+      </div>
+      <div>
+        <span class="pd-cat">${escapeHtml(product.category)}</span>
+        <h1 class="pd-name">${escapeHtml(product.name)}</h1>
+        <div class="pd-price">${formatPrice(product.price)}</div>
+        <p class="pd-desc">${escapeHtml(product.description)}</p>
+
+        <div class="option-block">
+          <h4>Taille</h4>
+          <div class="size-options" id="pd-sizes">
+            ${product.sizes.map(s => `<div class="size-opt ${s===pdSelectedSize?'active':''}" onclick="selectSize('${escapeHtml(s)}', this)">${escapeHtml(s)}</div>`).join('')}
+          </div>
+        </div>
+
+        <div class="option-block">
+          <h4>Couleur</h4>
+          <div class="color-options" id="pd-colors">
+            ${product.colors.map(c => `
+              <div class="color-opt ${c[0]===pdSelectedColor?'active':''}" onclick="selectColor('${escapeHtml(c[0])}', this)">
+                <div class="swatch-circle" style="background:${c[1]};box-shadow:0 0 0 1px var(--border) inset;"></div>
+                ${escapeHtml(c[0])}
+              </div>`).join('')}
+          </div>
+        </div>
+
+        <div class="option-block">
+          <h4>Quantité</h4>
+          <div class="qty-selector">
+            <button type="button" onclick="stepQty(-1)">−</button>
+            <input type="number" id="pd-qty" value="1" min="1">
+            <button type="button" onclick="stepQty(1)">+</button>
+          </div>
+        </div>
+
+        <div class="pd-actions">
+          <button class="btn btn-primary" ${outOfStock?'disabled':''} onclick="handleAddToCart('${product.id}')">Ajouter au panier</button>
+          <a href="#/catalogue" class="btn btn-outline">Continuer mes achats</a>
+        </div>
+        <div class="stock-note">
+          ${outOfStock ? '<span class="badge badge-danger">Rupture de stock</span>' : `<span class="badge badge-success">En stock (${product.stock} disponibles)</span>`}
+        </div>
+      </div>
+    </div>
+  </div>
+  `;
+}
+function attachProductDetailEvents(){}
+function switchGalleryImage(i, el){
+  const product = getProducts().find(p => p.id === parseHash()[1]);
+  document.getElementById('pd-main-img').src = product.images[i];
+  document.querySelectorAll('.gallery-thumbs img').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+}
+function selectSize(size, el){
+  pdSelectedSize = size;
+  document.querySelectorAll('#pd-sizes .size-opt').forEach(o => o.classList.remove('active'));
+  el.classList.add('active');
+}
+function selectColor(color, el){
+  pdSelectedColor = color;
+  document.querySelectorAll('#pd-colors .color-opt').forEach(o => o.classList.remove('active'));
+  el.classList.add('active');
+}
+function stepQty(delta){
+  const input = document.getElementById('pd-qty');
+  let v = parseInt(input.value || '1') + delta;
+  if(v < 1) v = 1;
+  input.value = v;
+}
+function handleAddToCart(productId){
+  const qty = parseInt(document.getElementById('pd-qty').value || '1');
+  addToCart(productId, pdSelectedSize, pdSelectedColor, qty);
+}
+
+/* ==========================================================================
+   PAGE : PANIER
+   ========================================================================== */
+function renderCartPage(){
+  const lines = cartLinesWithProducts();
+  if(!lines.length){
+    return `
+    <div class="container cart-page">
+      <div class="page-head"><h1>Mon Panier</h1></div>
+      <p class="empty-state">Votre panier est vide. <a href="#/catalogue" style="color:var(--purple-dark);text-decoration:underline;">Découvrir le catalogue</a></p>
+    </div>`;
+  }
+  const total = cartTotal();
+  return `
+  <div class="container cart-page">
+    <div class="page-head"><h1>Mon Panier</h1></div>
+    <div class="cart-layout">
+      <div class="card-white" style="padding:10px 22px;">
+        ${lines.map(l => `
+          <div class="cart-item">
+            <img src="${l.product.images[0]}" alt="${escapeHtml(l.product.name)}">
+            <div>
+              <div class="cart-item-name">${escapeHtml(l.product.name)}</div>
+              <div class="cart-item-meta">Taille : ${escapeHtml(l.size||'-')} · Couleur : ${escapeHtml(l.color||'-')}</div>
+              <div class="qty-selector">
+                <button type="button" onclick="updateCartQty(${l.index}, ${l.qty-1})">−</button>
+                <input type="number" value="${l.qty}" min="1" onchange="updateCartQty(${l.index}, parseInt(this.value||1))">
+                <button type="button" onclick="updateCartQty(${l.index}, ${l.qty+1})">+</button>
+              </div>
+            </div>
+            <div class="cart-item-right">
+              <span class="cart-item-price">${formatPrice(l.product.price * l.qty)}</span>
+              <button class="cart-item-remove" onclick="removeCartLine(${l.index})">Supprimer</button>
+            </div>
+          </div>
+        `).join('')}
+      </div>
+      <div class="card-white summary-box">
+        <h3 style="margin-bottom:18px;">Résumé de la commande</h3>
+        <div class="summary-row"><span>Sous-total</span><span>${formatPrice(total)}</span></div>
+        <div class="summary-row"><span>Livraison</span><span>Offerte</span></div>
+        <div class="summary-row total"><span>Total</span><span>${formatPrice(total)}</span></div>
+        <a href="#/checkout" class="btn btn-primary btn-block" style="margin-top:16px;">Commander</a>
+      </div>
+    </div>
+  </div>
+  `;
+}
+
+/* ==========================================================================
+   PAGE : CHECKOUT
+   ========================================================================== */
+function renderCheckoutPage(){
+  const lines = cartLinesWithProducts();
+  if(!lines.length){
+    return `<div class="container checkout-page"><div class="page-head"><h1>Commande</h1></div><p class="empty-state">Votre panier est vide.</p></div>`;
+  }
+  const total = cartTotal();
+  return `
+  <div class="container checkout-page">
+    <div class="page-head"><h1>Finaliser ma commande</h1></div>
+    <div class="checkout-layout">
+      <form id="checkout-form" class="card-white" style="padding:26px;" onsubmit="return handleCheckoutSubmit(event)">
+        <h3 class="form-section-title">Informations client</h3>
+        <div class="form-row form-row-2">
+          <div class="form-group"><label>Prénom</label><input type="text" id="ck-firstname" required></div>
+          <div class="form-group"><label>Nom</label><input type="text" id="ck-lastname" required></div>
+        </div>
+        <div class="form-row form-row-2">
+          <div class="form-group"><label>Email</label><input type="email" id="ck-email" required></div>
+          <div class="form-group"><label>Téléphone</label><input type="tel" id="ck-phone" required></div>
+        </div>
+        <div class="form-group"><label>Adresse</label><input type="text" id="ck-address" required></div>
+        <div class="form-row form-row-3">
+          <div class="form-group"><label>Ville</label><input type="text" id="ck-city" required></div>
+          <div class="form-group"><label>Code postal</label><input type="text" id="ck-zip" required></div>
+          <div class="form-group"><label>Pays</label><input type="text" id="ck-country" value="Maroc" required></div>
+        </div>
+
+        <h3 class="form-section-title">Paiement (simulé)</h3>
+        <div class="form-group"><label>Numéro de carte</label><input type="text" id="ck-card" placeholder="1234 5678 9012 3456" maxlength="19" required></div>
+        <div class="form-row form-row-2">
+          <div class="form-group"><label>Date d'expiration</label><input type="text" id="ck-exp" placeholder="MM/AA" maxlength="5" required></div>
+          <div class="form-group"><label>CVV</label><input type="text" id="ck-cvv" placeholder="123" maxlength="3" required></div>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-block">Payer ${formatPrice(total)}</button>
+      </form>
+
+      <div class="card-white summary-box">
+        <h3 style="margin-bottom:18px;">Récapitulatif</h3>
+        ${lines.map(l => `
+          <div class="summary-row"><span>${escapeHtml(l.product.name)} × ${l.qty}</span><span>${formatPrice(l.product.price*l.qty)}</span></div>
+        `).join('')}
+        <div class="summary-row total"><span>Total</span><span>${formatPrice(total)}</span></div>
+      </div>
+    </div>
+  </div>
+  `;
+}
+function attachCheckoutEvents(){}
+
+function handleCheckoutSubmit(e){
+  e.preventDefault();
+  const lines = cartLinesWithProducts();
+  const total = cartTotal();
+  const order = {
+    id: 'CMD' + Date.now().toString().slice(-8),
+    date: new Date().toISOString(),
+    customer: {
+      firstname: document.getElementById('ck-firstname').value,
+      lastname: document.getElementById('ck-lastname').value,
+      email: document.getElementById('ck-email').value,
+      phone: document.getElementById('ck-phone').value,
+      address: document.getElementById('ck-address').value,
+      city: document.getElementById('ck-city').value,
+      zip: document.getElementById('ck-zip').value,
+      country: document.getElementById('ck-country').value
+    },
+    items: lines.map(l => ({ name:l.product.name, size:l.size, color:l.color, qty:l.qty, price:l.product.price })),
+    total
+  };
+  const orders = getOrders();
+  orders.push(order);
+  saveOrders(orders);
+
+  // Décrémente le stock des produits commandés
+  const products = getProducts();
+  lines.forEach(l => {
+    const p = products.find(pr => pr.id === l.product.id);
+    if(p) p.stock = Math.max(0, p.stock - l.qty);
+  });
+  saveProducts(products);
+
+  saveCart([]);
+  document.getElementById('app').innerHTML = `
+    <div class="container checkout-confirm">
+      <div class="icon-ok">✓</div>
+      <h1>Merci pour votre commande !</h1>
+      <p style="color:var(--text-soft);margin:14px 0 24px;">Votre commande n° <strong>${order.id}</strong> a bien été enregistrée. Un email de confirmation sera envoyé à ${escapeHtml(order.customer.email)}.</p>
+      <a href="#/catalogue" class="btn btn-primary">Continuer mes achats</a>
+    </div>
+  `;
+  return false;
+}
+
+/* ==========================================================================
+   ADMIN : AUTHENTIFICATION
+   ========================================================================== */
+const ADMIN_CREDENTIALS = { username:'admin', password:'admin123' };
+function isAdminLoggedIn(){ return sessionStorage.getItem('sp_admin_auth') === 'true'; }
+
+function renderAdminRoute(app){
+  if(!isAdminLoggedIn()){
+    app.innerHTML = renderAdminLogin();
+  } else {
+    app.innerHTML = renderAdminDashboard();
+    attachAdminDashboardEvents();
+  }
+}
+function renderAdminLogin(){
+  return `
+  <div class="container admin-login-wrap">
+    <div class="card-white admin-login-box fade-in">
+      <div style="font-size:2rem;">🔒</div>
+      <h2>Espace Admin</h2>
+      <p>Connectez-vous pour gérer la boutique Style-Pudique</p>
+      <form onsubmit="return handleAdminLogin(event)">
+        <div class="form-group" style="text-align:left;">
+          <label>Identifiant</label>
+          <input type="text" id="admin-user" required>
+        </div>
+        <div class="form-group" style="text-align:left;">
+          <label>Mot de passe</label>
+          <input type="password" id="admin-pass" required>
+        </div>
+        <button type="submit" class="btn btn-primary btn-block">Se connecter</button>
+        <p class="admin-error" id="admin-error">Identifiants incorrects.</p>
+      </form>
+      <div class="admin-hint">Identifiants de démonstration : <strong>admin</strong> / <strong>admin123</strong></div>
+    </div>
+  </div>
+  `;
+}
+function handleAdminLogin(e){
+  e.preventDefault();
+  const user = document.getElementById('admin-user').value.trim();
+  const pass = document.getElementById('admin-pass').value;
+  if(user === ADMIN_CREDENTIALS.username && pass === ADMIN_CREDENTIALS.password){
+    sessionStorage.setItem('sp_admin_auth','true');
+    renderRoute();
+  } else {
+    document.getElementById('admin-error').style.display = 'block';
+  }
+  return false;
+}
+function adminLogout(){
+  sessionStorage.removeItem('sp_admin_auth');
+  navigate('#/');
+}
+
+/* ==========================================================================
+   ADMIN : DASHBOARD (Produits & Commandes)
+   ========================================================================== */
+let adminActiveTab = 'produits';
+let uploadedImages = [];
+
+function renderAdminDashboard(){
+  const products = getProducts();
+  const orders = getOrders();
+  return `
+  <div class="container admin-shell">
+    <div class="admin-topbar">
+      <div>
+        <div class="crumbs"><a href="#/">Accueil</a> / Admin</div>
+        <h1>Tableau de bord</h1>
+      </div>
+      <button class="btn btn-outline btn-sm" onclick="adminLogout()">Se déconnecter</button>
+    </div>
+
+    <div class="admin-stats">
+      <div class="card-white stat-card"><div class="stat-value">${products.length}</div><div class="stat-label">Produits</div></div>
+      <div class="card-white stat-card"><div class="stat-value">${products.filter(p=>p.stock<=0).length}</div><div class="stat-label">Ruptures de stock</div></div>
+      <div class="card-white stat-card"><div class="stat-value">${orders.length}</div><div class="stat-label">Commandes</div></div>
+      <div class="card-white stat-card"><div class="stat-value">${formatPrice(orders.reduce((s,o)=>s+o.total,0))}</div><div class="stat-label">Chiffre d'affaires</div></div>
+    </div>
+
+    <div class="admin-tabs">
+      <button class="admin-tab ${adminActiveTab==='produits'?'active':''}" onclick="switchAdminTab('produits')">Produits</button>
+      <button class="admin-tab ${adminActiveTab==='commandes'?'active':''}" onclick="switchAdminTab('commandes')">Commandes</button>
+    </div>
+
+    <div id="admin-tab-content"></div>
+  </div>
+  `;
+}
+function attachAdminDashboardEvents(){ renderAdminTabContent(); }
+function switchAdminTab(tab){
+  adminActiveTab = tab;
+  document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active'));
+  event.target.classList.add('active');
+  renderAdminTabContent();
+}
+function renderAdminTabContent(){
+  const container = document.getElementById('admin-tab-content');
+  if(!container) return;
+  container.innerHTML = adminActiveTab === 'produits' ? renderAdminProductsTab() : renderAdminOrdersTab();
+}
+
+function renderAdminProductsTab(){
+  const products = getProducts();
+  return `
+  <div style="margin-bottom:18px;">
+    <button class="btn btn-primary" onclick="openProductModal()">+ Ajouter un produit</button>
+  </div>
+  <div class="admin-prod-grid">
+    ${products.map(p => `
+      <div class="card-white admin-prod-card">
+        <img src="${p.images[0]}" alt="${escapeHtml(p.name)}">
+        <div class="apc-info">
+          <h4>${escapeHtml(p.name)}</h4>
+          <div class="apc-price">${formatPrice(p.price)}</div>
+          <div class="apc-stock">${p.stock > 0 ? 'Stock : '+p.stock : '<span style="color:var(--danger);">Rupture de stock</span>'}</div>
+          <div class="admin-prod-actions">
+            <button class="btn btn-outline btn-sm" onclick="openProductModal('${p.id}')">Modifier</button>
+            <button class="btn btn-danger btn-sm" onclick="deleteProduct('${p.id}')">Supprimer</button>
+          </div>
+        </div>
+      </div>
+    `).join('') || '<p class="empty-state">Aucun produit. Ajoutez-en un pour commencer.</p>'}
+  </div>
+  `;
+}
+function renderAdminOrdersTab(){
+  const orders = getOrders().slice().reverse();
+  if(!orders.length) return '<p class="empty-state">Aucune commande pour le moment.</p>';
+  return `
+  <div class="card-white orders-table-wrap" style="padding:6px 10px;">
+    <table class="orders-table">
+      <thead><tr><th>N° Commande</th><th>Client</th><th>Articles</th><th>Total</th><th>Date</th></tr></thead>
+      <tbody>
+        ${orders.map(o => `
+          <tr>
+            <td>${o.id}</td>
+            <td>${escapeHtml(o.customer.firstname)} ${escapeHtml(o.customer.lastname)}<br><span class="order-items-mini">${escapeHtml(o.customer.email)}</span></td>
+            <td class="order-items-mini">${o.items.map(i => `${escapeHtml(i.name)} (${i.qty})`).join(', ')}</td>
+            <td>${formatPrice(o.total)}</td>
+            <td>${new Date(o.date).toLocaleDateString('fr-FR')}</td>
+          </tr>
+        `).join('')}
+      </tbody>
+    </table>
+  </div>
+  `;
+}
+
+/* ---- Modal Ajout / Modification produit ---- */
+function openProductModal(productId){
+  const modal = document.getElementById('product-modal');
+  const form = document.getElementById('product-form');
+  form.reset();
+  uploadedImages = [];
+  document.querySelectorAll('#pf-sizes input, #pf-colors input').forEach(c => c.checked = false);
+
+  if(productId){
+    const p = getProducts().find(pr => pr.id === productId);
+    document.getElementById('modal-title').textContent = 'Modifier le produit';
+    document.getElementById('pf-id').value = p.id;
+    document.getElementById('pf-name').value = p.name;
+    document.getElementById('pf-desc').value = p.description;
+    document.getElementById('pf-price').value = p.price;
+    document.getElementById('pf-stock').value = p.stock;
+    document.getElementById('pf-category').value = p.category;
+    document.getElementById('pf-featured').checked = !!p.featured;
+    p.sizes.forEach(s => { const c = document.querySelector(`#pf-sizes input[value="${s}"]`); if(c) c.checked = true; });
+    p.colors.forEach(c => { const box = document.querySelector(`#pf-colors input[value="${c[0]}|${c[1]}"]`); if(box) box.checked = true; });
+    uploadedImages = [...p.images];
+    renderImagePreview();
+  } else {
+    document.getElementById('modal-title').textContent = 'Ajouter un produit';
+    document.getElementById('pf-id').value = '';
+    renderImagePreview();
+  }
+  modal.classList.add('open');
+}
+function closeProductModal(){ document.getElementById('product-modal').classList.remove('open'); }
+
+function handleImageUpload(e){
+  const files = Array.from(e.target.files);
+  let remaining = files.length;
+  if(!remaining) return;
+  files.forEach(file => {
+    const reader = new FileReader();
+    reader.onload = (ev) => {
+      uploadedImages.push(ev.target.result);
+      renderImagePreview();
+    };
+    reader.readAsDataURL(file);
+  });
+  e.target.value = '';
+}
+function removeUploadedImage(i){
+  uploadedImages.splice(i,1);
+  renderImagePreview();
+}
+function renderImagePreview(){
+  const el = document.getElementById('pf-images-preview');
+  el.innerHTML = uploadedImages.map((img,i) => `
+    <div class="img-upload-item">
+      <img src="${img}">
+      <div class="remove-img" onclick="removeUploadedImage(${i})">&times;</div>
+    </div>
+  `).join('');
+}
+
+function handleProductFormSubmit(e){
+  e.preventDefault();
+  if(!uploadedImages.length){
+    alert('Veuillez ajouter au moins une image du produit.');
+    return false;
+  }
+  const sizes = Array.from(document.querySelectorAll('#pf-sizes input:checked')).map(c => c.value);
+  const colors = Array.from(document.querySelectorAll('#pf-colors input:checked')).map(c => c.value.split('|'));
+  if(!sizes.length || !colors.length){
+    alert('Veuillez sélectionner au moins une taille et une couleur.');
+    return false;
+  }
+  const id = document.getElementById('pf-id').value;
+  const products = getProducts();
+  const data = {
+    name: document.getElementById('pf-name').value,
+    description: document.getElementById('pf-desc').value,
+    price: parseFloat(document.getElementById('pf-price').value),
+    stock: parseInt(document.getElementById('pf-stock').value),
+    category: document.getElementById('pf-category').value,
+    featured: document.getElementById('pf-featured').checked,
+    sizes, colors,
+    images: [...uploadedImages]
+  };
+
+  if(id){
+    const idx = products.findIndex(p => p.id === id);
+    products[idx] = { ...products[idx], ...data };
+    showToast('Produit mis à jour ✓');
+  } else {
+    products.push({ id:'p'+Date.now(), createdAt: Date.now(), ...data });
+    showToast('Produit ajouté ✓');
+  }
+  saveProducts(products);
+  closeProductModal();
+  renderAdminTabContent();
+  return false;
+}
+function deleteProduct(id){
+  if(!confirm('Supprimer définitivement ce produit ?')) return;
+  saveProducts(getProducts().filter(p => p.id !== id));
+  showToast('Produit supprimé');
+  renderAdminTabContent();
+}
+
+/* ==========================================================================
+   INITIALISATION
+   ========================================================================== */
+document.getElementById('burger-btn').addEventListener('click', () => {
+  document.getElementById('mobile-menu').classList.toggle('open');
+});
+window.addEventListener('hashchange', renderRoute);
+window.addEventListener('DOMContentLoaded', () => {
+  seedProductsIfEmpty();
+  updateCartBadge();
+  renderRoute();
+});
+</script>
+</body>
+</html>

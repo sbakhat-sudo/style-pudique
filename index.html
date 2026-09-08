@@ -553,6 +553,9 @@ table.orders-table th{color:var(--purple-dark);text-transform:uppercase;font-siz
    ========================================================================== */
 const DB_KEYS = { PRODUCTS:'sp_products', ORDERS:'sp_orders', CART:'sp_cart' };
 
+// Numéro WhatsApp de la boutique (format international, sans "+" ni espaces)
+const WHATSAPP_NUMBER = '212604170551';
+
 function getProducts(){ return JSON.parse(localStorage.getItem(DB_KEYS.PRODUCTS) || '[]'); }
 function saveProducts(list){ localStorage.setItem(DB_KEYS.PRODUCTS, JSON.stringify(list)); }
 function getOrders(){ return JSON.parse(localStorage.getItem(DB_KEYS.ORDERS) || '[]'); }
@@ -1058,7 +1061,7 @@ function renderCheckoutPage(){
           <div class="form-group"><label>Nom</label><input type="text" id="ck-lastname" required></div>
         </div>
         <div class="form-row form-row-2">
-          <div class="form-group"><label>Email</label><input type="email" id="ck-email" required></div>
+          <div class="form-group"><label>Email (optionnel)</label><input type="email" id="ck-email"></div>
           <div class="form-group"><label>Téléphone</label><input type="tel" id="ck-phone" required></div>
         </div>
         <div class="form-group"><label>Adresse</label><input type="text" id="ck-address" required></div>
@@ -1068,14 +1071,10 @@ function renderCheckoutPage(){
           <div class="form-group"><label>Pays</label><input type="text" id="ck-country" value="Maroc" required></div>
         </div>
 
-        <h3 class="form-section-title">Paiement (simulé)</h3>
-        <div class="form-group"><label>Numéro de carte</label><input type="text" id="ck-card" placeholder="1234 5678 9012 3456" maxlength="19" required></div>
-        <div class="form-row form-row-2">
-          <div class="form-group"><label>Date d'expiration</label><input type="text" id="ck-exp" placeholder="MM/AA" maxlength="5" required></div>
-          <div class="form-group"><label>CVV</label><input type="text" id="ck-cvv" placeholder="123" maxlength="3" required></div>
-        </div>
-
-        <button type="submit" class="btn btn-primary btn-block">Payer ${formatPrice(total)}</button>
+        <p style="color:var(--text-soft);font-size:0.85rem;margin-bottom:16px;">
+          Aucun paiement en ligne : en confirmant, votre commande est enregistrée et vous êtes redirigée vers WhatsApp pour finaliser l'achat directement avec la boutique.
+        </p>
+        <button type="submit" class="btn btn-primary btn-block">Confirmer et envoyer sur WhatsApp</button>
       </form>
 
       <div class="card-white summary-box">
@@ -1090,6 +1089,27 @@ function renderCheckoutPage(){
   `;
 }
 function attachCheckoutEvents(){}
+
+function buildWhatsAppOrderUrl(order){
+  const lignes = order.items.map(i =>
+    `• ${i.name} (Taille : ${i.size || '-'}, Couleur : ${i.color || '-'}) x${i.qty} — ${formatPrice(i.price * i.qty)}`
+  ).join('\n');
+  const c = order.customer;
+  const message =
+`Nouvelle commande Style-Pudique 🌸
+N° commande : ${order.id}
+
+Articles :
+${lignes}
+
+Total : ${formatPrice(order.total)}
+
+Client : ${c.firstname} ${c.lastname}
+Téléphone : ${c.phone}
+Adresse : ${c.address}, ${c.city} ${c.zip}, ${c.country}${c.email ? '\nEmail : ' + c.email : ''}`;
+
+  return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+}
 
 function handleCheckoutSubmit(e){
   e.preventDefault();
@@ -1124,12 +1144,19 @@ function handleCheckoutSubmit(e){
   saveProducts(products);
 
   saveCart([]);
+
+  const waUrl = buildWhatsAppOrderUrl(order);
+  window.open(waUrl, '_blank');
+
   document.getElementById('app').innerHTML = `
     <div class="container checkout-confirm">
       <div class="icon-ok">✓</div>
       <h1>Merci pour votre commande !</h1>
-      <p style="color:var(--text-soft);margin:14px 0 24px;">Votre commande n° <strong>${order.id}</strong> a bien été enregistrée. Un email de confirmation sera envoyé à ${escapeHtml(order.customer.email)}.</p>
-      <a href="#/catalogue" class="btn btn-primary">Continuer mes achats</a>
+      <p style="color:var(--text-soft);margin:14px 0 24px;">Votre commande n° <strong>${order.id}</strong> a bien été enregistrée. Une fenêtre WhatsApp s'est ouverte avec le récapitulatif : envoyez le message pour finaliser votre achat avec la boutique.</p>
+      <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;">
+        <a href="${waUrl}" target="_blank" rel="noopener" class="btn btn-primary">Ouvrir WhatsApp</a>
+        <a href="#/catalogue" class="btn btn-outline">Continuer mes achats</a>
+      </div>
     </div>
   `;
   return false;

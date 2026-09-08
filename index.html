@@ -587,46 +587,46 @@ function saveCart(list){ localStorage.setItem(DB_KEYS.CART, JSON.stringify(list)
 // Données de démonstration injectées au premier chargement uniquement
 function seedProductsIfEmpty(){
   if(getProducts().length > 0) return;
-  const ph = (bg,label) => `https://placehold.co/600x800/${bg}/ffffff?text=${encodeURIComponent(label)}&font=poppins`;
+  const ph = (bg) => `https://placehold.co/600x800/${bg}/ffffff?text=Style-Pudique&font=poppins`;
   const demo = [
-    { name:"Robe Amira", category:"Robes", price:79.90, stock:12, featured:true,
+    { name:"Robe Amira", nameAr:"فستان أميرة", category:"Robes", price:79.90, stock:12, featured:true,
       sizes:["S","M","L","XL"], colors:[["Mauve","#8B5CF6"],["Noir","#1F2937"],["Beige","#D8CAB8"]],
-      images:[ph("8B5CF6","Robe Amira 1"),ph("6D28D9","Robe Amira 2")],
+      images:[ph("8B5CF6"),ph("6D28D9")],
       description:"Robe longue fluide en tissu doux, coupe ample et manches longues. Idéale pour un look pudique et raffiné au quotidien.",
       descriptionAr:"فستان طويل وانسيابي من قماش ناعم، بقصة واسعة وأكمام طويلة. مثالي لإطلالة محتشمة وأنيقة في الحياة اليومية." },
-    { name:"Abaya Noor", category:"Abayas", price:99.90, stock:8, featured:true,
+    { name:"Abaya Noor", nameAr:"عباية نور", category:"Abayas", price:99.90, stock:8, featured:true,
       sizes:["S","M","L"], colors:[["Noir","#1F2937"],["Bordeaux","#7F1D1D"]],
-      images:[ph("6D28D9","Abaya Noor 1"),ph("8B5CF6","Abaya Noor 2")],
+      images:[ph("6D28D9"),ph("8B5CF6")],
       description:"Abaya classique à coupe droite, tissu premium infroissable, finitions soignées et broderie discrète sur les manches.",
       descriptionAr:"عباية كلاسيكية بقصة مستقيمة، من قماش فاخر لا يتجعد، بتشطيبات أنيقة وتطريز بسيط على الأكمام." },
-    { name:"Hijab Soie Douce", category:"Hijabs", price:24.90, stock:30, featured:true,
+    { name:"Hijab Soie Douce", nameAr:"حجاب حريري ناعم", category:"Hijabs", price:24.90, stock:30, featured:true,
       sizes:["Taille unique"], colors:[["Mauve","#8B5CF6"],["Blanc","#FFFFFF"],["Beige","#D8CAB8"]],
-      images:[ph("D8CAB8","Hijab Soie 1"),ph("8B5CF6","Hijab Soie 2")],
+      images:[ph("D8CAB8"),ph("8B5CF6")],
       description:"Hijab en voile de soie synthétique, léger et opaque, tombé parfait, ne glisse pas.",
       descriptionAr:"حجاب من الحرير الصناعي، خفيف وغير شفاف، بسقوط مثالي وثبات ممتاز دون انزلاق." },
-    { name:"Ensemble Léa", category:"Ensembles", price:129.90, stock:6, featured:true,
+    { name:"Ensemble Léa", nameAr:"طقم ليا", category:"Ensembles", price:129.90, stock:6, featured:true,
       sizes:["S","M","L","XL"], colors:[["Beige","#D8CAB8"],["Noir","#1F2937"]],
-      images:[ph("8B5CF6","Ensemble Lea 1"),ph("6D28D9","Ensemble Lea 2")],
+      images:[ph("8B5CF6"),ph("6D28D9")],
       description:"Ensemble deux pièces : tunique longue et pantalon large assorti, parfait pour un style pudique moderne.",
       descriptionAr:"طقم من قطعتين: قميص طويل وسروال واسع متناسق، مثالي لإطلالة محتشمة وعصرية." },
-    { name:"Robe Yasmine", category:"Robes", price:89.90, stock:0, featured:false,
+    { name:"Robe Yasmine", nameAr:"فستان ياسمين", category:"Robes", price:89.90, stock:0, featured:false,
       sizes:["M","L"], colors:[["Bordeaux","#7F1D1D"]],
-      images:[ph("7F1D1D","Robe Yasmine 1")],
+      images:[ph("7F1D1D")],
       description:"Robe évasée à col rond, tissu texturé, parfaite pour les occasions spéciales.",
       descriptionAr:"فستان بقصة واسعة وياقة دائرية، من قماش ذو ملمس مميز، مثالي للمناسبات الخاصة." },
-    { name:"Abaya Chiffon Elégance", category:"Abayas", price:109.90, stock:15, featured:false,
+    { name:"Abaya Chiffon Elégance", nameAr:"عباية شيفون أنيقة", category:"Abayas", price:109.90, stock:15, featured:false,
       sizes:["S","M","L","XL"], colors:[["Mauve","#8B5CF6"],["Noir","#1F2937"]],
-      images:[ph("8B5CF6","Abaya Chiffon 1"),ph("6D28D9","Abaya Chiffon 2")],
+      images:[ph("8B5CF6"),ph("6D28D9")],
       description:"Abaya en mousseline légère doublée, coupe fluide et élégante, ceinture assortie incluse.",
       descriptionAr:"عباية من الشيفون الخفيف المبطن، بقصة انسيابية وأنيقة، مع حزام متناسق." },
-    { name:"Hijab Jersey Confort", category:"Hijabs", price:19.90, stock:40, featured:false,
+    { name:"Hijab Jersey Confort", nameAr:"حجاب جيرسي مريح", category:"Hijabs", price:19.90, stock:40, featured:false,
       sizes:["Taille unique"], colors:[["Noir","#1F2937"],["Beige","#D8CAB8"],["Mauve","#8B5CF6"]],
-      images:[ph("1F2937","Hijab Jersey 1")],
+      images:[ph("1F2937")],
       description:"Hijab en jersey extensible, très confortable, facile à mettre en place, idéal usage quotidien.",
       descriptionAr:"حجاب من قماش الجيرسي المرن، مريح جدًا وسهل التركيب، مثالي للاستخدام اليومي." },
-    { name:"Sac Voile Minimaliste", category:"Accessoires", price:39.90, stock:20, featured:false,
+    { name:"Sac Voile Minimaliste", nameAr:"حقيبة أنيقة بسيطة", category:"Accessoires", price:39.90, stock:20, featured:false,
       sizes:["Taille unique"], colors:[["Mauve","#8B5CF6"],["Noir","#1F2937"]],
-      images:[ph("6D28D9","Sac Voile 1")],
+      images:[ph("6D28D9")],
       description:"Sac à main minimaliste, ligne épurée, parfait complément pour toute tenue pudique.",
       descriptionAr:"حقيبة يد بتصميم بسيط وأنيق، الإضافة المثالية لأي إطلالة محتشمة." }
   ];
@@ -636,6 +636,22 @@ function seedProductsIfEmpty(){
     ...p
   }));
   saveProducts(products);
+}
+
+// Complète les traductions arabes manquantes sur des produits démo déjà enregistrés
+// dans le navigateur (sans jamais toucher aux produits renommés ou ajoutés par l'admin)
+function migrateDemoTranslations(){
+  const AR_NAMES = {
+    "Robe Amira":"فستان أميرة", "Abaya Noor":"عباية نور", "Hijab Soie Douce":"حجاب حريري ناعم",
+    "Ensemble Léa":"طقم ليا", "Robe Yasmine":"فستان ياسمين", "Abaya Chiffon Elégance":"عباية شيفون أنيقة",
+    "Hijab Jersey Confort":"حجاب جيرسي مريح", "Sac Voile Minimaliste":"حقيبة أنيقة بسيطة"
+  };
+  const products = getProducts();
+  let changed = false;
+  products.forEach(p => {
+    if(!p.nameAr && AR_NAMES[p.name]){ p.nameAr = AR_NAMES[p.name]; changed = true; }
+  });
+  if(changed) saveProducts(products);
 }
 
 /* ==========================================================================
@@ -1626,6 +1642,7 @@ document.getElementById('burger-btn').addEventListener('click', () => {
 window.addEventListener('hashchange', renderRoute);
 window.addEventListener('DOMContentLoaded', () => {
   seedProductsIfEmpty();
+  migrateDemoTranslations();
   applyLangToDocument();
   updateCartBadge();
   renderRoute();

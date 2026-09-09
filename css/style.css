@@ -192,7 +192,9 @@ html[data-theme="dark"] .theme-icon-dark{display:inline;}
 .prod-img-wrap{position:relative;aspect-ratio:3/4;overflow:hidden;background:var(--purple-lighter);}
 .prod-img-wrap img{width:100%;height:100%;object-fit:cover;transition:transform .5s ease;}
 .prod-card:hover .prod-img-wrap img{transform:scale(1.06);}
-.prod-badge-new{position:absolute;top:10px;inset-inline-start:10px;}
+.prod-badges{position:absolute;top:10px;inset-inline-start:10px;display:flex;flex-direction:column;gap:6px;align-items:flex-start;}
+.badge-gold{background:#FEF3C7;color:#92400E;}
+.badge-dark{background:#1F2937;color:#fff;}
 .prod-info{padding:14px 16px 18px;flex:1;display:flex;flex-direction:column;gap:6px;}
 .prod-cat{font-size:0.72rem;color:var(--purple-dark);font-weight:600;text-transform:uppercase;letter-spacing:.05em;}
 .prod-name{font-size:0.98rem;font-weight:500;}

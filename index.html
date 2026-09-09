@@ -330,6 +330,17 @@ footer.site-footer{background:var(--purple-lighter);border-top:1px solid var(--b
   width:70px;height:70px;border-radius:50%;background:var(--purple-light);color:var(--purple-dark);
   display:flex;align-items:center;justify-content:center;margin:0 auto 20px;font-size:2rem;
 }
+.trust-section{max-width:900px;margin:56px auto 0;text-align:center;}
+.trust-section h3{font-size:1.1rem;color:var(--purple-dark);margin-bottom:22px;}
+.trust-grid{display:grid;grid-template-columns:1fr;gap:16px;text-align:start;}
+@media(min-width:768px){.trust-grid{grid-template-columns:repeat(3,1fr);}}
+.trust-card{background:var(--purple-lighter);border-radius:var(--radius);padding:20px;}
+.trust-stars{font-size:0.85rem;margin-bottom:8px;letter-spacing:1px;}
+.trust-card p{font-size:0.9rem;color:var(--text);margin-bottom:10px;font-weight:300;}
+.trust-author{font-size:0.8rem;color:var(--text-soft);font-weight:500;}
+.order-status-badge{display:inline-block;padding:3px 10px;border-radius:50px;font-size:0.72rem;font-weight:600;}
+.order-status-badge.pending{background:#FEF3C7;color:#92400E;}
+.order-status-badge.confirmed{background:#DCFCE7;color:var(--success);}
 
 /* ==========================================================================
    14. ADMIN
@@ -706,9 +717,14 @@ const I18N = {
     address:"Adresse", city:"Ville", zip:"Code postal", country:"Pays",
     paymentNote:"Aucun paiement en ligne : en confirmant, votre commande est enregistrée et vous êtes redirigée vers WhatsApp pour finaliser l'achat directement avec la boutique.",
     confirmWhatsapp:"Confirmer et envoyer sur WhatsApp", recap:"Récapitulatif",
-    thanksTitle:"Merci pour votre commande !",
-    thanksMessage:"Votre commande n° {id} a bien été enregistrée. Une fenêtre WhatsApp s'est ouverte avec le récapitulatif : envoyez le message pour finaliser votre achat avec la boutique.",
+    thanksTitle:"Merci pour votre commande ! 🙏",
+    thanksMessage:"Votre commande a bien été reçue sur WhatsApp. Merci de patienter pendant que notre équipe la confirme, nous vous répondrons très rapidement.",
     openWhatsapp:"Ouvrir WhatsApp",
+    trustTitle:"Ce que disent nos clientes",
+    orderStatusPending:"En attente de confirmation", orderStatusConfirmed:"Confirmée ✅",
+    adminConfirmOrderBtn:"Confirmer & prévenir sur WhatsApp",
+    waConfirmedGreeting:"Parfait ! ✅ Votre commande {id} est CONFIRMÉE.",
+    waConfirmedBody:"Merci pour votre confiance, nous la préparons dès maintenant pour vous. 🌸",
     adminLoginSubtitle:"Connectez-vous pour gérer la boutique Style-Pudique",
     username:"Identifiant", password:"Mot de passe", loginBtn:"Se connecter", loginError:"Identifiants incorrects.",
     demoCreds:"Identifiants de démonstration :",
@@ -717,6 +733,7 @@ const I18N = {
     addProductBtn:"+ Ajouter un produit", editBtn:"Modifier", stockLabel:"Stock : ",
     noProducts:"Aucun produit. Ajoutez-en un pour commencer.",
     orderNumber:"N° Commande", customerLabel:"Client", articlesLabel:"Articles", dateLabel:"Date",
+    statusLabel:"Statut", toastOrderConfirmed:"Commande confirmée ✓",
     noOrders:"Aucune commande pour le moment.",
     modalAddTitle:"Ajouter un produit", modalEditTitle:"Modifier le produit",
     fieldNameFr:"Nom du produit (Français)", fieldNameAr:"Nom du produit (Arabe – optionnel)",
@@ -767,9 +784,14 @@ const I18N = {
     address:"العنوان", city:"المدينة", zip:"الرمز البريدي", country:"البلد",
     paymentNote:"لا يوجد دفع إلكتروني: عند التأكيد، يتم تسجيل طلبك وتحويلك إلى واتساب لإتمام الشراء مباشرة مع المتجر.",
     confirmWhatsapp:"تأكيد الطلب عبر واتساب", recap:"ملخص الطلب",
-    thanksTitle:"شكرًا على طلبك!",
-    thanksMessage:"تم تسجيل طلبك رقم {id} بنجاح. تم فتح نافذة واتساب تحتوي على ملخص الطلب: أرسلي الرسالة لإتمام عملية الشراء مع المتجر.",
+    thanksTitle:"شكرًا لطلبك! 🙏",
+    thanksMessage:"تم استلام طلبك عبر واتساب. يرجى الانتظار حتى يقوم فريقنا بتأكيده، سنرد عليك في أقرب وقت ممكن.",
     openWhatsapp:"فتح واتساب",
+    trustTitle:"ماذا تقول عميلاتنا",
+    orderStatusPending:"بانتظار التأكيد", orderStatusConfirmed:"مؤكد ✅",
+    adminConfirmOrderBtn:"تأكيد الطلب وإخطار العميلة عبر واتساب",
+    waConfirmedGreeting:"ممتاز! ✅ تم تأكيد طلبك رقم {id}.",
+    waConfirmedBody:"شكرًا لثقتك، نحن بصدد تحضيره لك الآن. 🌸",
     adminLoginSubtitle:"سجلي الدخول لإدارة متجر Style-Pudique",
     username:"اسم المستخدم", password:"كلمة المرور", loginBtn:"تسجيل الدخول", loginError:"بيانات الدخول غير صحيحة.",
     demoCreds:"بيانات تجريبية:",
@@ -778,6 +800,7 @@ const I18N = {
     addProductBtn:"+ إضافة منتج", editBtn:"تعديل", stockLabel:"المخزون: ",
     noProducts:"لا يوجد منتج. أضيفي واحدًا للبدء.",
     orderNumber:"رقم الطلب", customerLabel:"العميلة", articlesLabel:"المنتجات", dateLabel:"التاريخ",
+    statusLabel:"الحالة", toastOrderConfirmed:"تم تأكيد الطلب ✓",
     noOrders:"لا توجد طلبات حاليًا.",
     modalAddTitle:"إضافة منتج", modalEditTitle:"تعديل المنتج",
     fieldNameFr:"اسم المنتج (بالفرنسية)", fieldNameAr:"اسم المنتج (بالعربية – اختياري)",
@@ -830,6 +853,36 @@ function prodDesc(p){ return (LANG === 'ar' && p.descriptionAr) ? p.descriptionA
 function measurementsText(m){
   if(!m) return '';
   return `${t('measHeight')} ${m.height}cm · ${t('measBust')} ${m.bust}cm · ${t('measWaist')} ${m.waist}cm · ${t('measHips')} ${m.hips}cm`;
+}
+
+// Avis clients d'exemple à remplacer par de vrais retours dès que la boutique en aura reçu.
+const REVIEWS = {
+  fr: [
+    { stars:5, text:"Service excellent, livraison rapide et qualité au rendez-vous.", author:"Fatima Z." },
+    { stars:5, text:"Très professionnelles, mon abaya sur mesure était parfaite.", author:"Sara B." },
+    { stars:5, text:"Réponse rapide sur WhatsApp, je recommande vivement cette boutique.", author:"Imane K." }
+  ],
+  ar: [
+    { stars:5, text:"خدمة ممتازة وتوصيل سريع وجودة عالية.", author:"فاطمة ز." },
+    { stars:5, text:"احترافية عالية، العباية المفصلة على المقاس كانت مثالية.", author:"سارة ب." },
+    { stars:5, text:"رد سريع جدًا على واتساب، أنصح بهذا المتجر بشدة.", author:"إيمان ك." }
+  ]
+};
+function trustSectionHtml(){
+  const reviews = REVIEWS[LANG] || REVIEWS.fr;
+  return `
+  <div class="trust-section">
+    <h3>${t('trustTitle')}</h3>
+    <div class="trust-grid">
+      ${reviews.map(r => `
+        <div class="trust-card">
+          <div class="trust-stars">${'⭐'.repeat(r.stars)}</div>
+          <p>${escapeHtml(r.text)}</p>
+          <span class="trust-author">— ${escapeHtml(r.author)}</span>
+        </div>
+      `).join('')}
+    </div>
+  </div>`;
 }
 
 function applyStaticTranslations(){
@@ -1441,7 +1494,8 @@ function handleCheckoutSubmit(e){
       country: document.getElementById('ck-country').value
     },
     items: lines.map(l => ({ name:prodName(l.product), size:l.size, color:l.color, qty:l.qty, price:l.product.price, measurements:l.measurements || null })),
-    total
+    total,
+    status: 'pending'
   };
   const orders = getOrders();
   orders.push(order);
@@ -1464,11 +1518,12 @@ function handleCheckoutSubmit(e){
     <div class="container checkout-confirm">
       <div class="icon-ok">✓</div>
       <h1>${t('thanksTitle')}</h1>
-      <p style="color:var(--text-soft);margin:14px 0 24px;">${t('thanksMessage').replace('{id}', order.id)}</p>
+      <p style="color:var(--text-soft);margin:14px 0 24px;">${t('thanksMessage')}</p>
       <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;">
         <a href="${waUrl}" target="_blank" rel="noopener" class="btn btn-primary">${t('openWhatsapp')}</a>
         <a href="#/catalogue" class="btn btn-outline">${t('continueShopping')}</a>
       </div>
+      ${trustSectionHtml()}
     </div>
   `;
   return false;
@@ -1607,7 +1662,7 @@ function renderAdminOrdersTab(){
   return `
   <div class="card-white orders-table-wrap" style="padding:6px 10px;">
     <table class="orders-table">
-      <thead><tr><th>${t('orderNumber')}</th><th>${t('customerLabel')}</th><th>${t('articlesLabel')}</th><th>${t('total')}</th><th>${t('dateLabel')}</th></tr></thead>
+      <thead><tr><th>${t('orderNumber')}</th><th>${t('customerLabel')}</th><th>${t('articlesLabel')}</th><th>${t('total')}</th><th>${t('dateLabel')}</th><th>${t('statusLabel')}</th></tr></thead>
       <tbody>
         ${orders.map(o => `
           <tr>
@@ -1616,12 +1671,36 @@ function renderAdminOrdersTab(){
             <td class="order-items-mini">${o.items.map(i => `${escapeHtml(i.name)} (${i.qty})`).join(', ')}</td>
             <td>${formatPrice(o.total)}</td>
             <td>${new Date(o.date).toLocaleDateString(LANG === 'ar' ? 'ar-MA' : 'fr-FR')}</td>
+            <td>
+              <span class="order-status-badge ${o.status === 'confirmed' ? 'confirmed' : 'pending'}">${o.status === 'confirmed' ? t('orderStatusConfirmed') : t('orderStatusPending')}</span>
+              ${o.status !== 'confirmed' ? `<br><button class="btn btn-outline btn-sm" style="margin-top:6px;white-space:normal;" onclick="confirmOrder('${o.id}')">${t('adminConfirmOrderBtn')}</button>` : ''}
+            </td>
           </tr>
         `).join('')}
       </tbody>
     </table>
   </div>
   `;
+}
+// Convertit un numéro local marocain (ex. 06...) au format international attendu par wa.me
+function normalizePhoneForWhatsApp(phone){
+  let digits = (phone || '').replace(/[^0-9]/g, '');
+  if(digits.startsWith('0')) digits = '212' + digits.slice(1);
+  return digits;
+}
+function buildWhatsAppConfirmedUrl(order){
+  const message = `${t('waConfirmedGreeting').replace('{id}', order.id)}\n${t('waConfirmedBody')}`;
+  return `https://wa.me/${normalizePhoneForWhatsApp(order.customer.phone)}?text=${encodeURIComponent(message)}`;
+}
+function confirmOrder(orderId){
+  const orders = getOrders();
+  const order = orders.find(o => o.id === orderId);
+  if(!order) return;
+  order.status = 'confirmed';
+  saveOrders(orders);
+  window.open(buildWhatsAppConfirmedUrl(order), '_blank');
+  showToast(t('toastOrderConfirmed'));
+  renderAdminTabContent();
 }
 
 /* ---- Modal Ajout / Modification produit ---- */

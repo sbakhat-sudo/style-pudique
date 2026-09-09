@@ -275,6 +275,11 @@ footer.site-footer{background:var(--purple-lighter);border-top:1px solid var(--b
   text-align:center;font-weight:500;font-size:0.9rem;transition:.2s;
 }
 .size-opt.active{border-color:var(--purple);background:var(--purple-light);color:var(--purple-dark);}
+.measurements-panel{background:var(--purple-lighter);border-radius:10px;padding:16px;margin-top:14px;}
+.measurements-panel h5{font-size:0.85rem;color:var(--purple-dark);margin-bottom:4px;}
+.measurements-panel .form-group{margin-bottom:0;}
+.measurements-panel .form-group label{font-size:0.78rem;color:var(--text-soft);}
+.measurements-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
 .color-options{display:flex;gap:12px;flex-wrap:wrap;}
 .color-opt{display:flex;flex-direction:column;align-items:center;gap:6px;font-size:0.72rem;color:var(--text-soft);}
 .color-opt .swatch-circle{width:32px;height:32px;border-radius:50%;border:2px solid transparent;transition:.2s;}
@@ -531,10 +536,15 @@ table.orders-table th{color:var(--purple-dark);text-transform:uppercase;font-siz
       <div class="form-group">
         <label data-i18n="fieldSizes">Tailles disponibles</label>
         <div class="checkbox-inline-group" id="pf-sizes">
+          <label><input type="checkbox" value="XS"> <span data-size-label="XS">XS</span></label>
           <label><input type="checkbox" value="S"> <span data-size-label="S">S</span></label>
           <label><input type="checkbox" value="M"> <span data-size-label="M">M</span></label>
           <label><input type="checkbox" value="L"> <span data-size-label="L">L</span></label>
           <label><input type="checkbox" value="XL"> <span data-size-label="XL">XL</span></label>
+          <label><input type="checkbox" value="XXL"> <span data-size-label="XXL">XXL</span></label>
+          <label><input type="checkbox" value="3XL"> <span data-size-label="3XL">3XL</span></label>
+          <label><input type="checkbox" value="Taille unique"> <span data-size-label="Taille unique">Taille unique</span></label>
+          <label><input type="checkbox" value="Sur mesure"> <span data-size-label="Sur mesure">Sur mesure</span></label>
         </div>
       </div>
       <div class="form-group">
@@ -589,12 +599,12 @@ function seedProductsIfEmpty(){
   if(getProducts().length > 0) return;
   const demo = [
     { name:"Robe Amira", nameAr:"فستان أميرة", category:"Robes", price:79.90, stock:12, featured:true,
-      sizes:["S","M","L","XL"], colors:[["Mauve","#8B5CF6"],["Noir","#1F2937"],["Beige","#D8CAB8"]],
+      sizes:["S","M","L","XL","Sur mesure"], colors:[["Mauve","#8B5CF6"],["Noir","#1F2937"],["Beige","#D8CAB8"]],
       images:[placeholderImage("Robes"),placeholderImage("Robes")],
       description:"Robe longue fluide en tissu doux, coupe ample et manches longues. Idéale pour un look pudique et raffiné au quotidien.",
       descriptionAr:"فستان طويل وانسيابي من قماش ناعم، بقصة واسعة وأكمام طويلة. مثالي لإطلالة محتشمة وأنيقة في الحياة اليومية." },
     { name:"Abaya Noor", nameAr:"عباية نور", category:"Abayas", price:99.90, stock:8, featured:true,
-      sizes:["S","M","L"], colors:[["Noir","#1F2937"],["Bordeaux","#7F1D1D"]],
+      sizes:["S","M","L","Sur mesure"], colors:[["Noir","#1F2937"],["Bordeaux","#7F1D1D"]],
       images:[placeholderImage("Abayas"),placeholderImage("Abayas")],
       description:"Abaya classique à coupe droite, tissu premium infroissable, finitions soignées et broderie discrète sur les manches.",
       descriptionAr:"عباية كلاسيكية بقصة مستقيمة، من قماش فاخر لا يتجعد، بتشطيبات أنيقة وتطريز بسيط على الأكمام." },
@@ -712,7 +722,11 @@ const I18N = {
     footerRights:"© 2026 Style-Pudique — Tous droits réservés",
     waTitle:"Nouvelle commande Style-Pudique 🌸", waOrderNumber:"N° commande", waItems:"Articles",
     waTotal:"Total", waCustomer:"Client", waPhone:"Téléphone", waAddress:"Adresse", waEmail:"Email",
-    waSize:"Taille", waColor:"Couleur"
+    waSize:"Taille", waColor:"Couleur", waMeasurements:"Mesures",
+    measurementsTitle:"Vos mesures (cm)", measHeight:"Hauteur", measBust:"Tour de poitrine",
+    measWaist:"Tour de taille", measHips:"Tour de hanches",
+    measHint:"Indiquez vos mesures pour une coupe sur mesure.",
+    alertNeedMeasurements:"Veuillez indiquer toutes vos mesures pour une taille sur mesure."
   },
   ar: {
     pageTitle:"ستايل بوديك | أزياء محتشمة وأنيقة",
@@ -769,7 +783,11 @@ const I18N = {
     footerRights:"© 2026 Style-Pudique — جميع الحقوق محفوظة",
     waTitle:"طلب جديد من Style-Pudique 🌸", waOrderNumber:"رقم الطلب", waItems:"المنتجات",
     waTotal:"المجموع", waCustomer:"الزبونة", waPhone:"الهاتف", waAddress:"العنوان", waEmail:"البريد الإلكتروني",
-    waSize:"المقاس", waColor:"اللون"
+    waSize:"المقاس", waColor:"اللون", waMeasurements:"المقاسات",
+    measurementsTitle:"مقاساتك (سم)", measHeight:"الطول", measBust:"محيط الصدر",
+    measWaist:"محيط الخصر", measHips:"محيط الورك",
+    measHint:"أدخلي مقاساتك للحصول على قصة مخصصة.",
+    alertNeedMeasurements:"يرجى إدخال جميع مقاساتك للمقاس المخصص."
   }
 };
 
@@ -782,8 +800,8 @@ const COLOR_LABELS = {
   ar:{Mauve:'موف',Noir:'أسود',Beige:'بيج',Blanc:'أبيض',Bordeaux:'عنابي'}
 };
 const SIZE_LABELS = {
-  fr:{'Taille unique':'Taille unique'},
-  ar:{'Taille unique':'مقاس واحد'}
+  fr:{'Taille unique':'Taille unique', 'Sur mesure':'Sur mesure'},
+  ar:{'Taille unique':'مقاس واحد', 'Sur mesure':'مقاس مخصص'}
 };
 
 function t(key){ return (I18N[LANG] && I18N[LANG][key]) || I18N.fr[key] || key; }
@@ -792,6 +810,10 @@ function colorLabel(name){ return (COLOR_LABELS[LANG] && COLOR_LABELS[LANG][name
 function sizeLabel(s){ return (SIZE_LABELS[LANG] && SIZE_LABELS[LANG][s]) || s; }
 function prodName(p){ return (LANG === 'ar' && p.nameAr) ? p.nameAr : p.name; }
 function prodDesc(p){ return (LANG === 'ar' && p.descriptionAr) ? p.descriptionAr : p.description; }
+function measurementsText(m){
+  if(!m) return '';
+  return `${t('measHeight')} ${m.height}cm · ${t('measBust')} ${m.bust}cm · ${t('measWaist')} ${m.waist}cm · ${t('measHips')} ${m.hips}cm`;
+}
 
 function applyStaticTranslations(){
   document.querySelectorAll('[data-i18n]').forEach(el => { el.textContent = t(el.dataset.i18n); });
@@ -880,10 +902,11 @@ function updateCartBadge(){
   const el = document.getElementById('cart-count');
   if(el) el.textContent = cartCount();
 }
-function addToCart(productId, size, color, qty){
+function addToCart(productId, size, color, qty, measurements){
   const cart = getCart();
-  const existing = cart.find(i => i.productId === productId && i.size === size && i.color === color);
-  if(existing){ existing.qty += qty; } else { cart.push({ productId, size, color, qty }); }
+  // Une ligne "Sur mesure" est toujours distincte (mesures propres à chaque commande)
+  const existing = !measurements && cart.find(i => i.productId === productId && i.size === size && i.color === color && !i.measurements);
+  if(existing){ existing.qty += qty; } else { cart.push({ productId, size, color, qty, measurements: measurements || null }); }
   saveCart(cart);
   showToast(t('toastAddedToCart'));
 }
@@ -1177,6 +1200,16 @@ function renderProductDetail(id){
           <div class="size-options" id="pd-sizes">
             ${product.sizes.map(s => `<div class="size-opt ${s===pdSelectedSize?'active':''}" onclick="selectSize('${escapeHtml(s)}', this)">${escapeHtml(sizeLabel(s))}</div>`).join('')}
           </div>
+          <div class="measurements-panel" id="pd-measurements" ${pdSelectedSize === 'Sur mesure' ? '' : 'hidden'}>
+            <h5>${t('measurementsTitle')}</h5>
+            <p class="field-hint" style="margin-bottom:12px;">${t('measHint')}</p>
+            <div class="measurements-grid">
+              <div class="form-group"><label>${t('measHeight')}</label><input type="number" id="meas-height" min="1" step="0.1"></div>
+              <div class="form-group"><label>${t('measBust')}</label><input type="number" id="meas-bust" min="1" step="0.1"></div>
+              <div class="form-group"><label>${t('measWaist')}</label><input type="number" id="meas-waist" min="1" step="0.1"></div>
+              <div class="form-group"><label>${t('measHips')}</label><input type="number" id="meas-hips" min="1" step="0.1"></div>
+            </div>
+          </div>
         </div>
 
         <div class="option-block">
@@ -1222,6 +1255,8 @@ function selectSize(size, el){
   pdSelectedSize = size;
   document.querySelectorAll('#pd-sizes .size-opt').forEach(o => o.classList.remove('active'));
   el.classList.add('active');
+  const panel = document.getElementById('pd-measurements');
+  if(panel) panel.hidden = size !== 'Sur mesure';
 }
 function selectColor(color, el){
   pdSelectedColor = color;
@@ -1236,7 +1271,20 @@ function stepQty(delta){
 }
 function handleAddToCart(productId){
   const qty = parseInt(document.getElementById('pd-qty').value || '1');
-  addToCart(productId, pdSelectedSize, pdSelectedColor, qty);
+  let measurements = null;
+  if(pdSelectedSize === 'Sur mesure'){
+    measurements = {
+      height: document.getElementById('meas-height').value,
+      bust: document.getElementById('meas-bust').value,
+      waist: document.getElementById('meas-waist').value,
+      hips: document.getElementById('meas-hips').value
+    };
+    if(!measurements.height || !measurements.bust || !measurements.waist || !measurements.hips){
+      alert(t('alertNeedMeasurements'));
+      return;
+    }
+  }
+  addToCart(productId, pdSelectedSize, pdSelectedColor, qty, measurements);
 }
 
 /* ==========================================================================
@@ -1263,6 +1311,7 @@ function renderCartPage(){
             <div>
               <div class="cart-item-name">${escapeHtml(prodName(l.product))}</div>
               <div class="cart-item-meta">${t('filterSize')} : ${escapeHtml(sizeLabel(l.size||'-'))} · ${t('filterColor')} : ${escapeHtml(colorLabel(l.color||'-'))}</div>
+              ${l.measurements ? `<div class="cart-item-meta">${escapeHtml(measurementsText(l.measurements))}</div>` : ''}
               <div class="qty-selector">
                 <button type="button" onclick="updateCartQty(${l.index}, ${l.qty-1})">−</button>
                 <input type="number" value="${l.qty}" min="1" onchange="updateCartQty(${l.index}, parseInt(this.value||1))">
@@ -1338,6 +1387,7 @@ function attachCheckoutEvents(){}
 function buildWhatsAppOrderUrl(order){
   const lignes = order.items.map(i =>
     `• ${i.name} (${t('waSize')} : ${sizeLabel(i.size) || '-'}, ${t('waColor')} : ${colorLabel(i.color) || '-'}) x${i.qty} — ${formatPrice(i.price * i.qty)}`
+    + (i.measurements ? `\n  ${t('waMeasurements')} : ${measurementsText(i.measurements)}` : '')
   ).join('\n');
   const c = order.customer;
   const message =
@@ -1373,7 +1423,7 @@ function handleCheckoutSubmit(e){
       zip: document.getElementById('ck-zip').value,
       country: document.getElementById('ck-country').value
     },
-    items: lines.map(l => ({ name:prodName(l.product), size:l.size, color:l.color, qty:l.qty, price:l.product.price })),
+    items: lines.map(l => ({ name:prodName(l.product), size:l.size, color:l.color, qty:l.qty, price:l.product.price, measurements:l.measurements || null })),
     total
   };
   const orders = getOrders();

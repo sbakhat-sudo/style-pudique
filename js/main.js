@@ -27,7 +27,7 @@ function saveCart(list, pulse){ localStorage.setItem(DB_KEYS.CART, JSON.stringif
 function seedProductsIfEmpty(){
   if(getProducts().length > 0) return;
   const demo = [
-    { name:"Robe Amira", nameAr:"فستان أميرة", category:"Robes", price:79.90, stock:12, featured:true,
+    { name:"Robe Amira", nameAr:"فستان أميرة", category:"Robes", price:79.90, stock:12, featured:true, newCollection:true,
       sizes:["S","M","L","XL","Sur mesure"], colors:[["Mauve","#8B5CF6"],["Noir","#1F2937"],["Beige","#D8CAB8"]],
       images:[placeholderImage("Robes"),placeholderImage("Robes")],
       description:"Robe longue fluide en tissu doux, coupe ample et manches longues. Idéale pour un look pudique et raffiné au quotidien.",
@@ -52,7 +52,7 @@ function seedProductsIfEmpty(){
       images:[placeholderImage("Robes")],
       description:"Robe évasée à col rond, tissu texturé, parfaite pour les occasions spéciales.",
       descriptionAr:"فستان بقصة واسعة وياقة دائرية، من قماش ذو ملمس مميز، مثالي للمناسبات الخاصة." },
-    { name:"Abaya Chiffon Elégance", nameAr:"عباية شيفون أنيقة", category:"Abayas", price:109.90, stock:15, featured:false,
+    { name:"Abaya Chiffon Elégance", nameAr:"عباية شيفون أنيقة", category:"Abayas", price:109.90, stock:15, featured:false, newCollection:true, uniquePiece:true,
       sizes:["S","M","L","XL"], colors:[["Mauve","#8B5CF6"],["Noir","#1F2937"]],
       images:[placeholderImage("Abayas"),placeholderImage("Abayas")],
       description:"Abaya en mousseline légère doublée, coupe fluide et élégante, ceinture assortie incluse.",
@@ -151,6 +151,11 @@ const I18N = {
     fieldPrice:"Prix (DH)", fieldStock:"Stock", fieldCategory:"Catégorie",
     fieldSizes:"Tailles disponibles", fieldColors:"Couleurs disponibles",
     fieldFeatured:"Mise en avant (page d'accueil)", featuredCheckboxLabel:"Produit vedette",
+    fieldSpecialTags:"Étiquettes spéciales", newCollectionCheckboxLabel:"Nouvelle Collection",
+    uniquePieceCheckboxLabel:"Pièce unique",
+    badgeNewCollection:"Nouvelle Collection", badgeUniquePiece:"Pièce unique",
+    filterTags:"Étiquettes", filterNewCollection:"Nouvelle Collection", filterUniquePiece:"Pièce unique",
+    newCollectionSectionTitle:"Nouvelle Collection", newCollectionSectionSubtitle:"Les dernières pièces arrivées en boutique",
     fieldImages:"Images du produit", saveProductBtn:"Enregistrer le produit",
     alertNeedImage:"Veuillez ajouter au moins une image du produit.",
     alertNeedSizeColor:"Veuillez sélectionner au moins une taille et une couleur.",
@@ -223,6 +228,11 @@ const I18N = {
     fieldPrice:"السعر (درهم)", fieldStock:"المخزون", fieldCategory:"الفئة",
     fieldSizes:"المقاسات المتوفرة", fieldColors:"الألوان المتوفرة",
     fieldFeatured:"إبراز في الصفحة الرئيسية", featuredCheckboxLabel:"منتج مميز",
+    fieldSpecialTags:"وسوم خاصة", newCollectionCheckboxLabel:"تشكيلة جديدة",
+    uniquePieceCheckboxLabel:"قطعة فريدة",
+    badgeNewCollection:"تشكيلة جديدة", badgeUniquePiece:"قطعة فريدة",
+    filterTags:"الوسوم", filterNewCollection:"تشكيلة جديدة", filterUniquePiece:"قطعة فريدة",
+    newCollectionSectionTitle:"تشكيلة جديدة", newCollectionSectionSubtitle:"آخر القطع التي وصلت إلى المتجر",
     fieldImages:"صور المنتج", saveProductBtn:"حفظ المنتج",
     alertNeedImage:"يرجى إضافة صورة واحدة على الأقل للمنتج.",
     alertNeedSizeColor:"يرجى اختيار مقاس ولون واحد على الأقل.",
@@ -577,6 +587,7 @@ function setActiveNav(parts){
 function renderHome(){
   const products = getProducts();
   const featured = products.filter(p => p.featured).slice(0,4);
+  const newCollectionProducts = products.filter(p => p.newCollection).slice(0,4);
   const categories = ['Robes', 'Abayas', 'Hijabs', 'Ensembles'];
 
   return `
@@ -614,6 +625,13 @@ function renderHome(){
     ${featured.length ? `<div class="prod-grid">${featured.map(productCardHtml).join('')}</div>` : `<p class="empty-state">${t('featuredEmpty')}</p>`}
   </section>
 
+  ${newCollectionProducts.length ? `
+  <section class="section container reveal-up" style="padding-top:0;">
+    <h2 class="section-title">${t('newCollectionSectionTitle')}</h2>
+    <p class="section-subtitle">${t('newCollectionSectionSubtitle')}</p>
+    <div class="prod-grid">${newCollectionProducts.map(productCardHtml).join('')}</div>
+  </section>` : ''}
+
   <section class="container reveal-up" style="padding-top:0;padding-bottom:16px;">
     ${trustSectionHtml(3)}
   </section>
@@ -640,7 +658,11 @@ function productCardHtml(p){
     <a href="#/produit/${p.id}">
       <div class="prod-img-wrap">
         <img src="${p.images[0]}" alt="${escapeHtml(prodName(p))}">
-        ${outOfStock ? '' : `<span class="badge badge-purple prod-badge-new">${t('badgeAvailable')}</span>`}
+        <div class="prod-badges">
+          ${outOfStock ? '' : `<span class="badge badge-purple">${t('badgeAvailable')}</span>`}
+          ${p.newCollection ? `<span class="badge badge-dark">${t('badgeNewCollection')}</span>` : ''}
+          ${p.uniquePiece ? `<span class="badge badge-gold">${t('badgeUniquePiece')}</span>` : ''}
+        </div>
       </div>
     </a>
     <div class="prod-info">
@@ -656,7 +678,7 @@ function productCardHtml(p){
 /* ==========================================================================
    PAGE : CATALOGUE
    ========================================================================== */
-let catalogueFilters = { categories:[], sizes:[], colors:[], min:'', max:'', sort:'newest' };
+let catalogueFilters = { categories:[], sizes:[], colors:[], min:'', max:'', sort:'newest', newCollection:false, uniquePiece:false };
 
 function resultCountText(n){
   if(LANG === 'ar') return `${n} ${n > 1 ? 'منتجات' : 'منتج'}`;
@@ -710,6 +732,17 @@ function renderCatalogue(){
             <input type="number" id="filter-max" placeholder="${t('filterMax')}" oninput="setPriceFilter()">
           </div>
         </div>
+        <div class="filter-group">
+          <h4>${t('filterTags')}</h4>
+          <label class="filter-check">
+            <input type="checkbox" id="filter-new-collection" onchange="toggleBoolFilter('newCollection')">
+            ${t('filterNewCollection')}
+          </label>
+          <label class="filter-check">
+            <input type="checkbox" id="filter-unique-piece" onchange="toggleBoolFilter('uniquePiece')">
+            ${t('filterUniquePiece')}
+          </label>
+        </div>
         <a class="filter-reset" onclick="resetFilters()">${t('filterReset')}</a>
       </aside>
 
@@ -747,8 +780,12 @@ function setPriceFilter(){
   renderFilteredProducts();
 }
 function setSortOrder(val){ catalogueFilters.sort = val; renderFilteredProducts(); }
+function toggleBoolFilter(key){
+  catalogueFilters[key] = !catalogueFilters[key];
+  renderFilteredProducts();
+}
 function resetFilters(){
-  catalogueFilters = { categories:[], sizes:[], colors:[], min:'', max:'', sort:'newest' };
+  catalogueFilters = { categories:[], sizes:[], colors:[], min:'', max:'', sort:'newest', newCollection:false, uniquePiece:false };
   document.getElementById('catalogue-grid').closest('.catalogue-main').parentElement.querySelectorAll('input[type=checkbox]').forEach(c=>c.checked=false);
   document.querySelectorAll('.color-swatch').forEach(s=>s.classList.remove('active'));
   document.getElementById('filter-min').value='';
@@ -764,6 +801,8 @@ function renderFilteredProducts(){
   if(f.colors.length) list = list.filter(p => p.colors.some(c => f.colors.includes(c[0])));
   if(f.min !== '') list = list.filter(p => p.price >= parseFloat(f.min));
   if(f.max !== '') list = list.filter(p => p.price <= parseFloat(f.max));
+  if(f.newCollection) list = list.filter(p => p.newCollection);
+  if(f.uniquePiece) list = list.filter(p => p.uniquePiece);
 
   if(f.sort === 'price-asc') list.sort((a,b) => a.price - b.price);
   else if(f.sort === 'price-desc') list.sort((a,b) => b.price - a.price);
@@ -1266,6 +1305,8 @@ function openProductModal(productId){
     document.getElementById('pf-stock').value = p.stock;
     document.getElementById('pf-category').value = p.category;
     document.getElementById('pf-featured').checked = !!p.featured;
+    document.getElementById('pf-new-collection').checked = !!p.newCollection;
+    document.getElementById('pf-unique-piece').checked = !!p.uniquePiece;
     p.sizes.forEach(s => { const c = document.querySelector(`#pf-sizes input[value="${s}"]`); if(c) c.checked = true; });
     p.colors.forEach(c => { const box = document.querySelector(`#pf-colors input[value="${c[0]}|${c[1]}"]`); if(box) box.checked = true; });
     uploadedImages = [...p.images];
@@ -1330,6 +1371,8 @@ function handleProductFormSubmit(e){
     stock: parseInt(document.getElementById('pf-stock').value),
     category: document.getElementById('pf-category').value,
     featured: document.getElementById('pf-featured').checked,
+    newCollection: document.getElementById('pf-new-collection').checked,
+    uniquePiece: document.getElementById('pf-unique-piece').checked,
     sizes, colors,
     images: [...uploadedImages]
   };

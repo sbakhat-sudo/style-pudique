@@ -1075,6 +1075,10 @@ function renderHome(){
     ${featured.length ? `<div class="prod-grid">${featured.map(productCardHtml).join('')}</div>` : `<p class="empty-state">${t('featuredEmpty')}</p>`}
   </section>
 
+  <section class="container" style="padding-top:0;padding-bottom:16px;">
+    ${trustSectionHtml()}
+  </section>
+
   <section class="container" style="padding-bottom:70px;">
     <div class="collection-banner">
       <h2>${t('bannerTitle')}</h2>

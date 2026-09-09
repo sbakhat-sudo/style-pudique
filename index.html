@@ -890,9 +890,12 @@ const REVIEWS = {
   ]
 };
 // Combine les avis d'exemple (traduits) avec les vrais avis envoyés par les clientes,
-// ces dernières affichées en premier (les plus récentes d'abord).
+// affichés publiquement : uniquement 4 étoiles et plus, les plus récents d'abord.
+// (Tous les avis restent toutefois enregistrés dans sp_reviews, y compris les moins bons.)
 function allReviews(){
-  const stored = getStoredReviews().slice().sort((a,b) => new Date(b.date) - new Date(a.date));
+  const stored = getStoredReviews()
+    .filter(r => r.stars >= 4)
+    .sort((a,b) => new Date(b.date) - new Date(a.date));
   const examples = REVIEWS[LANG] || REVIEWS.fr;
   return [...stored, ...examples];
 }

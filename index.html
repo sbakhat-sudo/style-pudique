@@ -38,14 +38,16 @@
     </nav>
 
     <div class="nav-actions">
-      <div class="lang-switch">
-        <button type="button" class="lang-btn" data-lang="fr" onclick="setLang('fr')">FR</button>
-        <button type="button" class="lang-btn" data-lang="ar" onclick="setLang('ar')">عربي</button>
+      <div class="header-controls">
+        <div class="lang-switch">
+          <button type="button" class="lang-btn" data-lang="fr" onclick="setLang('fr')">FR</button>
+          <button type="button" class="lang-btn" data-lang="ar" onclick="setLang('ar')">عربي</button>
+        </div>
+        <button type="button" class="theme-toggle" onclick="toggleTheme()" title="Thème clair / sombre">
+          <span class="theme-icon theme-icon-light">☀️</span>
+          <span class="theme-icon theme-icon-dark">🌙</span>
+        </button>
       </div>
-      <button type="button" class="theme-toggle" id="theme-toggle" onclick="toggleTheme()" title="Thème clair / sombre">
-        <span class="theme-icon theme-icon-light">☀️</span>
-        <span class="theme-icon theme-icon-dark">🌙</span>
-      </button>
       <a href="#/panier" class="cart-link" title="Panier">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 4h2l2.4 12.2a2 2 0 0 0 2 1.8h7.8a2 2 0 0 0 2-1.6L21 8H6"/><circle cx="9.5" cy="20.5" r="1.2" fill="currentColor" stroke="none"/><circle cx="17.5" cy="20.5" r="1.2" fill="currentColor" stroke="none"/></svg>
         <span class="cart-count" id="cart-count">0</span>
@@ -58,6 +60,16 @@
     <a href="#/catalogue" data-i18n="navCatalogue">Catalogue</a>
     <a href="#/avis" data-i18n="navReviews">Avis</a>
     <a href="#/panier" data-i18n="navCart">Panier</a>
+    <div class="header-controls header-controls-mobile">
+      <div class="lang-switch">
+        <button type="button" class="lang-btn" data-lang="fr" onclick="setLang('fr')">FR</button>
+        <button type="button" class="lang-btn" data-lang="ar" onclick="setLang('ar')">عربي</button>
+      </div>
+      <button type="button" class="theme-toggle" onclick="toggleTheme()" title="Thème clair / sombre">
+        <span class="theme-icon theme-icon-light">☀️</span>
+        <span class="theme-icon theme-icon-dark">🌙</span>
+      </button>
+    </div>
     <a href="#/admin" data-i18n="navAdmin">Espace Admin</a>
   </div>
 </header>

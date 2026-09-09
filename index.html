@@ -587,46 +587,45 @@ function saveCart(list){ localStorage.setItem(DB_KEYS.CART, JSON.stringify(list)
 // Données de démonstration injectées au premier chargement uniquement
 function seedProductsIfEmpty(){
   if(getProducts().length > 0) return;
-  const ph = (bg) => `https://placehold.co/600x800/${bg}/ffffff?text=Style-Pudique&font=poppins`;
   const demo = [
     { name:"Robe Amira", nameAr:"فستان أميرة", category:"Robes", price:79.90, stock:12, featured:true,
       sizes:["S","M","L","XL"], colors:[["Mauve","#8B5CF6"],["Noir","#1F2937"],["Beige","#D8CAB8"]],
-      images:[ph("8B5CF6"),ph("6D28D9")],
+      images:[placeholderImage("Robes"),placeholderImage("Robes")],
       description:"Robe longue fluide en tissu doux, coupe ample et manches longues. Idéale pour un look pudique et raffiné au quotidien.",
       descriptionAr:"فستان طويل وانسيابي من قماش ناعم، بقصة واسعة وأكمام طويلة. مثالي لإطلالة محتشمة وأنيقة في الحياة اليومية." },
     { name:"Abaya Noor", nameAr:"عباية نور", category:"Abayas", price:99.90, stock:8, featured:true,
       sizes:["S","M","L"], colors:[["Noir","#1F2937"],["Bordeaux","#7F1D1D"]],
-      images:[ph("6D28D9"),ph("8B5CF6")],
+      images:[placeholderImage("Abayas"),placeholderImage("Abayas")],
       description:"Abaya classique à coupe droite, tissu premium infroissable, finitions soignées et broderie discrète sur les manches.",
       descriptionAr:"عباية كلاسيكية بقصة مستقيمة، من قماش فاخر لا يتجعد، بتشطيبات أنيقة وتطريز بسيط على الأكمام." },
     { name:"Hijab Soie Douce", nameAr:"حجاب حريري ناعم", category:"Hijabs", price:24.90, stock:30, featured:true,
       sizes:["Taille unique"], colors:[["Mauve","#8B5CF6"],["Blanc","#FFFFFF"],["Beige","#D8CAB8"]],
-      images:[ph("D8CAB8"),ph("8B5CF6")],
+      images:[placeholderImage("Hijabs"),placeholderImage("Hijabs")],
       description:"Hijab en voile de soie synthétique, léger et opaque, tombé parfait, ne glisse pas.",
       descriptionAr:"حجاب من الحرير الصناعي، خفيف وغير شفاف، بسقوط مثالي وثبات ممتاز دون انزلاق." },
     { name:"Ensemble Léa", nameAr:"طقم ليا", category:"Ensembles", price:129.90, stock:6, featured:true,
       sizes:["S","M","L","XL"], colors:[["Beige","#D8CAB8"],["Noir","#1F2937"]],
-      images:[ph("8B5CF6"),ph("6D28D9")],
+      images:[placeholderImage("Ensembles"),placeholderImage("Ensembles")],
       description:"Ensemble deux pièces : tunique longue et pantalon large assorti, parfait pour un style pudique moderne.",
       descriptionAr:"طقم من قطعتين: قميص طويل وسروال واسع متناسق، مثالي لإطلالة محتشمة وعصرية." },
     { name:"Robe Yasmine", nameAr:"فستان ياسمين", category:"Robes", price:89.90, stock:0, featured:false,
       sizes:["M","L"], colors:[["Bordeaux","#7F1D1D"]],
-      images:[ph("7F1D1D")],
+      images:[placeholderImage("Robes")],
       description:"Robe évasée à col rond, tissu texturé, parfaite pour les occasions spéciales.",
       descriptionAr:"فستان بقصة واسعة وياقة دائرية، من قماش ذو ملمس مميز، مثالي للمناسبات الخاصة." },
     { name:"Abaya Chiffon Elégance", nameAr:"عباية شيفون أنيقة", category:"Abayas", price:109.90, stock:15, featured:false,
       sizes:["S","M","L","XL"], colors:[["Mauve","#8B5CF6"],["Noir","#1F2937"]],
-      images:[ph("8B5CF6"),ph("6D28D9")],
+      images:[placeholderImage("Abayas"),placeholderImage("Abayas")],
       description:"Abaya en mousseline légère doublée, coupe fluide et élégante, ceinture assortie incluse.",
       descriptionAr:"عباية من الشيفون الخفيف المبطن، بقصة انسيابية وأنيقة، مع حزام متناسق." },
     { name:"Hijab Jersey Confort", nameAr:"حجاب جيرسي مريح", category:"Hijabs", price:19.90, stock:40, featured:false,
       sizes:["Taille unique"], colors:[["Noir","#1F2937"],["Beige","#D8CAB8"],["Mauve","#8B5CF6"]],
-      images:[ph("1F2937")],
+      images:[placeholderImage("Hijabs")],
       description:"Hijab en jersey extensible, très confortable, facile à mettre en place, idéal usage quotidien.",
       descriptionAr:"حجاب من قماش الجيرسي المرن، مريح جدًا وسهل التركيب، مثالي للاستخدام اليومي." },
     { name:"Sac Voile Minimaliste", nameAr:"حقيبة أنيقة بسيطة", category:"Accessoires", price:39.90, stock:20, featured:false,
       sizes:["Taille unique"], colors:[["Mauve","#8B5CF6"],["Noir","#1F2937"]],
-      images:[ph("6D28D9")],
+      images:[placeholderImage("Accessoires")],
       description:"Sac à main minimaliste, ligne épurée, parfait complément pour toute tenue pudique.",
       descriptionAr:"حقيبة يد بتصميم بسيط وأنيق، الإضافة المثالية لأي إطلالة محتشمة." }
   ];
@@ -818,6 +817,22 @@ function setLang(lang){
 /* ==========================================================================
    UTILITAIRES
    ========================================================================== */
+// Icônes de substitution dessinées en SVG (aucune requête réseau, donc jamais
+// d'image cassée) en attendant que la boutique mette en ligne ses vraies photos.
+const CATEGORY_ICONS = {
+  Robes: `<path d="M38 22 Q50 14 62 22 L58 30 L72 108 L28 108 L42 30 Z" fill="none" stroke="#fff" stroke-width="2.5" stroke-linejoin="round"/><path d="M38 22 L30 40 M62 22 L70 40" stroke="#fff" stroke-width="2.5" stroke-linecap="round" fill="none"/>`,
+  Abayas: `<path d="M40 20 Q50 14 60 20 L56 26 L68 112 L32 112 L44 26 Z" fill="none" stroke="#fff" stroke-width="2.5" stroke-linejoin="round"/><path d="M40 20 L22 55 L28 58 L44 30 M60 20 L78 55 L72 58 L56 30" stroke="#fff" stroke-width="2.5" stroke-linejoin="round" fill="none"/>`,
+  Hijabs: `<circle cx="50" cy="34" r="16" fill="none" stroke="#fff" stroke-width="2.5"/><path d="M30 30 Q20 55 26 90 Q50 100 74 90 Q80 55 70 30 Q50 20 30 30 Z" fill="none" stroke="#fff" stroke-width="2.5" stroke-linejoin="round"/>`,
+  Ensembles: `<path d="M38 20 Q50 14 62 20 L58 26 L64 58 L36 58 L42 26 Z" fill="none" stroke="#fff" stroke-width="2.5" stroke-linejoin="round"/><path d="M34 66 L66 66 L70 110 L52 110 L50 80 L48 110 L30 110 Z" fill="none" stroke="#fff" stroke-width="2.5" stroke-linejoin="round"/>`,
+  Accessoires: `<path d="M32 42 Q32 24 50 24 Q68 24 68 42" fill="none" stroke="#fff" stroke-width="2.5"/><rect x="26" y="42" width="48" height="38" rx="6" fill="none" stroke="#fff" stroke-width="2.5"/><line x1="26" y1="56" x2="74" y2="56" stroke="#fff" stroke-width="2"/>`
+};
+function placeholderImage(category){
+  const icon = CATEGORY_ICONS[category] || CATEGORY_ICONS.Robes;
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 120">`
+    + `<defs><linearGradient id="g" x1="0" y1="0" x2="100" y2="120"><stop offset="0" stop-color="#A78BFA"/><stop offset="1" stop-color="#6D28D9"/></linearGradient></defs>`
+    + `<rect width="100" height="120" fill="url(#g)"/>${icon}</svg>`;
+  return 'data:image/svg+xml,' + encodeURIComponent(svg);
+}
 function formatPrice(n){
   const val = LANG === 'ar' ? n.toFixed(2) : n.toFixed(2).replace('.', ',');
   const currency = LANG === 'ar' ? 'درهم' : 'DH';
@@ -913,10 +928,7 @@ function setActiveNav(parts){
 function renderHome(){
   const products = getProducts();
   const featured = products.filter(p => p.featured).slice(0,4);
-  const categories = [
-    { name:'Robes', bg:'8B5CF6' }, { name:'Abayas', bg:'6D28D9' },
-    { name:'Hijabs', bg:'A78BFA' }, { name:'Ensembles', bg:'7C3AED' }
-  ];
+  const categories = ['Robes', 'Abayas', 'Hijabs', 'Ensembles'];
 
   return `
   <section class="hero fade-in">
@@ -935,10 +947,10 @@ function renderHome(){
     <h2 class="section-title">${t('categoriesTitle')}</h2>
     <p class="section-subtitle">${t('categoriesSubtitle')}</p>
     <div class="cat-grid">
-      ${categories.map(c => `
-        <div class="cat-card" onclick="navigate('#/catalogue'); setTimeout(()=>filterByCategory('${c.name}'),0)">
-          <img src="https://placehold.co/400x400/${c.bg}/ffffff?text=${encodeURIComponent(catLabel(c.name))}&font=poppins" alt="${escapeHtml(catLabel(c.name))}">
-          <div class="cat-overlay"><span>${escapeHtml(catLabel(c.name))}</span></div>
+      ${categories.map(cat => `
+        <div class="cat-card" onclick="navigate('#/catalogue'); setTimeout(()=>filterByCategory('${cat}'),0)">
+          <img src="${placeholderImage(cat)}" alt="${escapeHtml(catLabel(cat))}">
+          <div class="cat-overlay"><span>${escapeHtml(catLabel(cat))}</span></div>
         </div>
       `).join('')}
     </div>

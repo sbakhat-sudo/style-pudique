@@ -396,6 +396,20 @@ function setLang(lang){
 }
 
 /* ==========================================================================
+   THÈME CLAIR / SOMBRE
+   ========================================================================== */
+let THEME = localStorage.getItem('sp_theme')
+  || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+function applyThemeToDocument(){
+  document.documentElement.setAttribute('data-theme', THEME);
+}
+function toggleTheme(){
+  THEME = THEME === 'dark' ? 'light' : 'dark';
+  localStorage.setItem('sp_theme', THEME);
+  applyThemeToDocument();
+}
+
+/* ==========================================================================
    UTILITAIRES
    ========================================================================== */
 // Visuels de substitution dessinés en SVG (aucune requête réseau, donc jamais
@@ -567,6 +581,9 @@ function renderHome(){
 
   return `
   <section class="hero fade-in">
+    <span class="hero-petal hero-petal-1">✿</span>
+    <span class="hero-petal hero-petal-2">✿</span>
+    <span class="hero-petal hero-petal-3">✿</span>
     <div class="hero-inner">
       <span class="hero-eyebrow">${t('heroEyebrow')}</span>
       <h1>${t('heroTitle1')} <span>${t('heroTitleHighlight')}</span></h1>
@@ -1347,6 +1364,7 @@ window.addEventListener('hashchange', renderRoute);
 window.addEventListener('DOMContentLoaded', () => {
   seedProductsIfEmpty();
   migrateDemoTranslations();
+  applyThemeToDocument();
   applyLangToDocument();
   updateCartBadge();
   renderRoute();

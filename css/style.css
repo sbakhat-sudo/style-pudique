@@ -3,6 +3,7 @@
    ========================================================================== */
 :root{
   --white:#FFFFFF;
+  --on-accent:#FFFFFF;
   --purple:#8B5CF6;
   --purple-dark:#6D28D9;
   --purple-light:#F5F1FE;
@@ -12,12 +13,32 @@
   --border:#E9E4F7;
   --danger:#DC2626;
   --success:#16A34A;
+  --header-bg:rgba(255,255,255,0.92);
   --radius:14px;
   --shadow:0 4px 24px rgba(139,92,246,0.10);
   --shadow-lg:0 12px 40px rgba(139,92,246,0.18);
+  color-scheme:light;
+}
+/* Thème sombre : activé explicitement via le bouton ☀️/🌙 (attribut data-theme sur <html>) */
+:root[data-theme="dark"]{
+  --white:#17131F;
+  --purple:#9D7BFF;
+  --purple-dark:#B794FF;
+  --purple-light:#2A2138;
+  --purple-lighter:#1E1728;
+  --text:#EDE9F5;
+  --text-soft:#A99FC0;
+  --border:#352B4A;
+  --danger:#F87171;
+  --success:#4ADE80;
+  --header-bg:rgba(23,19,31,0.85);
+  --shadow:0 4px 24px rgba(0,0,0,0.35);
+  --shadow-lg:0 12px 40px rgba(0,0,0,0.45);
+  color-scheme:dark;
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 html{scroll-behavior:smooth;}
+html,body{transition:background-color .35s ease, color .35s ease;}
 body{
   font-family:'Poppins',sans-serif;
   color:var(--text);
@@ -31,7 +52,7 @@ img{max-width:100%;display:block;}
 a{text-decoration:none;color:inherit;}
 ul{list-style:none;}
 button{font-family:inherit;cursor:pointer;border:none;background:none;}
-input,select,textarea{font-family:inherit;font-size:1rem;}
+input,select,textarea{font-family:inherit;font-size:1rem;background:var(--white);color:var(--text);}
 h1,h2,h3,h4{font-weight:600;letter-spacing:-0.01em;}
 
 .container{max-width:1200px;margin:0 auto;padding:0 20px;}
@@ -47,14 +68,14 @@ h1,h2,h3,h4{font-weight:600;letter-spacing:-0.01em;}
   padding:14px 30px;border-radius:50px;font-weight:500;font-size:0.95rem;
   transition:all .25s ease;white-space:nowrap;
 }
-.btn-primary{background:var(--purple);color:var(--white);}
+.btn-primary{background:var(--purple);color:var(--on-accent);}
 .btn-primary:hover{background:var(--purple-dark);transform:translateY(-2px);box-shadow:var(--shadow-lg);}
 .btn-outline{background:transparent;color:var(--purple-dark);border:1.5px solid var(--purple);}
-.btn-outline:hover{background:var(--purple);color:var(--white);}
+.btn-outline:hover{background:var(--purple);color:var(--on-accent);}
 .btn-block{width:100%;}
 .btn-sm{padding:8px 18px;font-size:0.85rem;border-radius:8px;}
 .btn-danger{background:#FEE2E2;color:var(--danger);}
-.btn-danger:hover{background:var(--danger);color:var(--white);}
+.btn-danger:hover{background:var(--danger);color:var(--on-accent);}
 .btn:disabled{opacity:0.5;cursor:not-allowed;transform:none!important;}
 
 .badge{display:inline-block;padding:4px 12px;border-radius:50px;font-size:0.72rem;font-weight:600;letter-spacing:.03em;}
@@ -69,7 +90,7 @@ h1,h2,h3,h4{font-weight:600;letter-spacing:-0.01em;}
    ========================================================================== */
 header.site-header{
   position:sticky;top:0;z-index:100;
-  background:rgba(255,255,255,0.92);backdrop-filter:blur(10px);
+  background:var(--header-bg);backdrop-filter:blur(10px);
   border-bottom:1px solid var(--border);
 }
 .nav-wrap{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;max-width:1200px;margin:0 auto;gap:14px;}
@@ -87,6 +108,15 @@ header.site-header{
 .lang-switch{display:flex;gap:3px;background:var(--purple-lighter);border-radius:50px;padding:3px;flex-shrink:0;}
 .lang-btn{padding:5px 10px;border-radius:50px;font-size:0.7rem;font-weight:600;color:var(--text-soft);transition:.2s;}
 .lang-btn.active{background:var(--purple);color:#fff;}
+.theme-toggle{
+  width:34px;height:34px;border-radius:50%;background:var(--purple-lighter);
+  display:flex;align-items:center;justify-content:center;font-size:0.95rem;
+  flex-shrink:0;transition:background .25s, transform .3s;
+}
+.theme-toggle:hover{background:var(--purple-light);transform:rotate(15deg);}
+.theme-icon-dark{display:none;}
+html[data-theme="dark"] .theme-icon-light{display:none;}
+html[data-theme="dark"] .theme-icon-dark{display:inline;}
 .cart-link{position:relative;display:flex;align-items:center;}
 .cart-count{
   position:absolute;top:-8px;inset-inline-end:-10px;background:var(--purple-dark);color:#fff;
@@ -382,7 +412,7 @@ table.orders-table th{color:var(--purple-dark);text-transform:uppercase;font-siz
   align-items:flex-start;justify-content:center;z-index:1000;padding:30px 16px;overflow-y:auto;
 }
 .modal-overlay.open{display:flex;}
-.modal-box{background:#fff;border-radius:var(--radius);width:100%;max-width:640px;padding:30px;margin:auto 0;}
+.modal-box{background:var(--white);border-radius:var(--radius);width:100%;max-width:640px;padding:30px;margin:auto 0;}
 .modal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;}
 .modal-close{font-size:1.4rem;color:var(--text-soft);line-height:1;}
 .modal-close:hover{color:var(--danger);}
@@ -450,7 +480,30 @@ table.orders-table th{color:var(--purple-dark);text-transform:uppercase;font-siz
 
   /* Étoiles de notation : léger rebond au survol (déjà scale via .star-btn:hover) */
   .star-btn{transition:color .15s, transform .25s cubic-bezier(.34,1.56,.64,1);}
+
+  /* Petits pétales décoratifs qui flottent doucement dans le hero */
+  .hero-petal{
+    position:absolute;color:var(--purple);opacity:0.18;font-size:1.6rem;pointer-events:none;
+    animation:petalDrift 7s ease-in-out infinite;
+  }
+  .hero-petal-1{top:18%;left:8%;animation-duration:8s;}
+  .hero-petal-2{top:65%;left:88%;font-size:1.2rem;animation-duration:6.5s;animation-delay:.8s;}
+  .hero-petal-3{top:40%;left:50%;font-size:1rem;animation-duration:9s;animation-delay:1.6s;}
+  @keyframes petalDrift{0%,100%{transform:translateY(0) rotate(0deg);}50%{transform:translateY(-18px) rotate(20deg);}}
+
+  /* Entrée plus vivante de la coche de confirmation de commande */
+  .checkout-confirm .icon-ok{animation:okPop .5s cubic-bezier(.34,1.56,.64,1) both;}
+  @keyframes okPop{0%{opacity:0;transform:scale(0.4);}70%{transform:scale(1.12);}100%{opacity:1;transform:scale(1);}}
+
+  /* Trait animé sous les titres de section, dessiné à l'apparition */
+  .reveal-up .section-title::after{
+    content:'';display:block;height:3px;width:0;margin:10px auto 0;border-radius:2px;
+    background:linear-gradient(120deg,var(--purple),var(--purple-dark));
+    transition:width .6s ease .15s;
+  }
+  .reveal-up.in-view .section-title::after{width:56px;}
 }
 @media (prefers-reduced-motion: reduce){
   .reveal-up, .reveal-up .cat-card{opacity:1;transform:none;}
+  .hero-petal{display:none;}
 }
